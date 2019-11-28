@@ -1,4 +1,7 @@
-1. 
+1. Brute force -- collecting all nodes into an array, sort them and create a new list within sorted array nlogn complexity
+2. compare one by one -- each time compare k nodes, and select the smallest adding to the tail of the list kn complexity
+3. divide and conquer -- merge two lists once, and then continue merge them. e.g list[1,2,3,4], you merge 1,2 and 3,4 to become
+1' and 2', then you merge 1' and 2' to get the result
 
 /**
  * Definition for singly-linked list.
@@ -8,6 +11,7 @@
  *     ListNode(int x) { val = x; }
  * }
  */
+//solution 1 
 class Solution {
     public ListNode mergeKLists(ListNode[] lists) {
         List<ListNode> res = new ArrayList<>();
@@ -53,4 +57,36 @@ class Solution {
         l.addAll(r);
         return  l;
     }
+}
+
+//solution 2
+class Solution {
+    public ListNode mergeKLists(ListNode[] lists) {
+        List<ListNode> res = new ArrayList<>(); 
+        
+        while(true){
+            int smallest = 999999;
+            int index = 0;
+            boolean stop = true;
+            for(int i=0;i<lists.length;i++){
+                if(lists[i]!=null && smallest>lists[i].val){
+                    stop = false;
+                    smallest = lists[i].val;
+                    index = i;
+                }
+            }
+            if(!stop){
+                res.add(lists[index]);
+                lists[index] = lists[index].next;
+                if(res.size()>1){
+                    res.get(res.size()-2).next = res.get(res.size()-1);
+                }
+            }else{
+                break;
+            }
+        }
+        if(res.size()==0) return null;
+        return res.get(0);
+    }
+    
 }
