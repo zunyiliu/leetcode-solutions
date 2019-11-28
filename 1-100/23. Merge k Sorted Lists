@@ -1,0 +1,56 @@
+1. 
+
+/**
+ * Definition for singly-linked list.
+ * public class ListNode {
+ *     int val;
+ *     ListNode next;
+ *     ListNode(int x) { val = x; }
+ * }
+ */
+class Solution {
+    public ListNode mergeKLists(ListNode[] lists) {
+        List<ListNode> res = new ArrayList<>();
+            
+        for(int i=0;i<lists.length;i++){
+            ListNode temp = lists[i];
+            while(temp!=null){
+                res.add(temp);
+                temp = temp.next;
+            }
+        }
+        if(res.size()==0) return null;
+        
+        //quicksort
+        res = quicksort(res);
+        for(int i=0;i<res.size()-1;i++){
+            res.get(i).next = res.get(i+1);
+        }
+        res.get(res.size()-1).next = null;
+        return res.get(0);
+    }
+    
+    public List<ListNode> quicksort(List<ListNode> res){
+        if(res.size()<=1) return res;
+        
+        int pivot = res.size()/2;
+        int pivot_val = res.get(pivot).val;
+        List<ListNode> l = new ArrayList<>();
+        List<ListNode> r = new ArrayList<>();
+        
+        for(int i=0;i<res.size();i++){
+            if(i!=pivot)
+            if(res.get(i).val<pivot_val){
+                l.add(res.get(i));
+            }else{
+                r.add(res.get(i));
+            }
+        }
+        
+        l = quicksort(l);
+        r = quicksort(r);
+        l.add(res.get(pivot));
+        l.addAll(r);
+        return  l;
+    }
+}
