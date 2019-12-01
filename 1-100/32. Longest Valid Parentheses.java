@@ -4,6 +4,10 @@
 //thus array[r] = 0, if stack is not empty then r-l+previous longest parenthese will be stored in array[r]
 
 //solution 2: use purely stack, a pointer that points to the least index(longest parentheses) that is valid for the current index i
+
+//solution 3: smart solution, never imagined this before, traverse s twice from start to end and from end to start
+//a left counter and right counter, whenever left==right, calculate max once, if ever right>left(which means its not valid),
+//reset left and right to be 0. twice traverse is to prevent that a sequence of parentheses is partially valid like "(()()" 
 class Solution {
     public int longestValidParentheses(String s) {
         int max = 0;
@@ -48,6 +52,43 @@ class Solution {
                    }
                }
            }
+        }
+        return max;
+    }
+}
+
+//solution 3
+class Solution {
+    public int longestValidParentheses(String s) {
+        int max = 0, left =0, right = 0;
+        for(int i=0;i<s.length();i++){
+            if(s.charAt(i)=='('){
+                left++;
+            }else{
+                right++;
+            }
+            if(right>left){
+                right=0;
+                left=0;
+            }else if(right==left){
+                max = Math.max(right+left,max);
+            }
+        }
+        
+        left = 0;
+        right = 0;
+        for(int i=s.length()-1;i>=0;i--){
+            if(s.charAt(i)=='('){
+                left++;
+            }else{
+                right++;
+            }
+            if(left>right){
+                right=0;
+                left=0;
+            }else if(left==right){
+                max = Math.max(max,left+right);
+            }
         }
         return max;
     }
