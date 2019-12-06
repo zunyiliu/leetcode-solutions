@@ -44,3 +44,24 @@ class Solution {
         return sum;
     }
 }
+//solution 3: use two pointers left and right, move them towards middle, track the highest wall on each side thus calculating
+//the water can be held for each index while left and right are moving toward
+class Solution {
+    public int trap(int[] height) {
+        int l = 0, r = height.length-1;
+        int lmax = 0, rmax = 0;
+        int sum = 0;
+        while(l<r){
+            if(height[l]>lmax) lmax = height[l];
+            if(height[r]>rmax) rmax = height[r];
+            if(lmax>rmax){
+                sum+=rmax-height[r];
+                r--;
+            }else{
+                sum+=lmax-height[l];
+                l++;
+            }
+        }
+        return sum;
+    }
+}
