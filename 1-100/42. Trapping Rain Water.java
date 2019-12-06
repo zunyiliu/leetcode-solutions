@@ -1,4 +1,7 @@
+//basic idea: For each height[i], calculate the max right wall and max left wall, the shorter wall between left& right is the 
+//limit water that index i can hold, loop all height[] and sum up the total amount of water
 //solution1: brute force
+//solution2: dynamic programming, same same solution1, but record left_max and right_max in arrays so it wouldn't be calculated every time
 class Solution {
     public int trap(int[] height) {
         int sum = 0;
@@ -13,6 +16,30 @@ class Solution {
             }
             if(height[i]<Math.min(r_height,l_height))
             sum+=Math.min(r_height,l_height)-height[i];
+        }
+        return sum;
+    }
+}
+
+//solution 2 dynamic programming
+class Solution {
+    public int trap(int[] height) {
+        int sum = 0;
+        int [] lmax = new int[height.length];
+        int [] rmax = new int[height.length];
+        int l = 0;
+        int r = 0;
+        for(int i=0;i<height.length;i++){
+            l = Math.max(l,height[i]);
+            lmax[i] = l;
+            r = Math.max(r,height[height.length-i-1]);
+            rmax[height.length-i-1] = r;
+        }
+        for(int i=1;i<height.length-1;i++){
+            int wall = Math.min(lmax[i-1],rmax[i+1]);
+            if(wall>height[i]){
+                sum+=wall-height[i];
+            }
         }
         return sum;
     }
