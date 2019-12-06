@@ -2,6 +2,8 @@
 //limit water that index i can hold, loop all height[] and sum up the total amount of water
 //solution1: brute force
 //solution2: dynamic programming, same same solution1, but record left_max and right_max in arrays so it wouldn't be calculated every time
+//solution3: use two pointers left and right, move them towards middle, track the highest wall on each side thus calculating
+//the water can be held for each index while left and right are moving toward
 class Solution {
     public int trap(int[] height) {
         int sum = 0;
@@ -44,8 +46,7 @@ class Solution {
         return sum;
     }
 }
-//solution 3: use two pointers left and right, move them towards middle, track the highest wall on each side thus calculating
-//the water can be held for each index while left and right are moving toward
+//solution 3:
 class Solution {
     public int trap(int[] height) {
         int l = 0, r = height.length-1;
