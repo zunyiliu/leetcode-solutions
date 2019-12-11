@@ -1,5 +1,5 @@
-// solution 1: bottom up DP, backtracking should also work but exceed the time limit here(in another similar problem, recursively 
-backtracking also works)
+// solution 1: bottom up DP, backtracking should also work but exceed the time limit here(in another similar problem recursively 
+// backtracking also works)
 // solution 2: top-down DP
 
 // solution 1
@@ -31,5 +31,32 @@ class Solution {
             }
         }
         return memo[m][n];
+    }
+}
+
+//solution 2
+class Solution {
+    public boolean isMatch(String s, String p) {
+        int m = s.length(),n = p.length();
+        Boolean memo[][] = new Boolean[m+1][n+1];
+        return backtrack(memo,m,n,s,p);
+    }
+    public boolean backtrack(Boolean memo[][],int m,int n,String s,String p){
+        if(memo[m][n]!=null) return memo[m][n];
+        if(n==0){
+            return memo[m][n] = m==0; 
+        }else if(m==0){
+            if(p.charAt(p.length()-n)=='*') return memo[m][n]=backtrack(memo,m,n-1,s,p);
+            else return memo[m][n] = false;
+        }else{
+            boolean match = s.charAt(s.length()-m)==p.charAt(p.length()-n)||p.charAt(p.length()-n)=='?';
+            if(match){
+                return memo[m][n] = backtrack(memo,m-1,n-1,s,p);
+            }else{
+                if(p.charAt(p.length()-n)=='*')
+                    return memo[m][n] = backtrack(memo,m,n-1,s,p) || backtrack(memo,m-1,n,s,p);
+                else return memo[m][n] = false;
+            }
+        }
     }
 }
