@@ -1,7 +1,8 @@
 // solution 1: bottom up DP, backtracking should also work but exceed the time limit here(in another similar problem recursively 
 // backtracking also works)
 // solution 2: top-down DP, solution 2.1: same as 2, just indicate that void method can also be used
-// solution 3:
+// solution 3: two pointers, use greedy and the mind of DFS, greedily move pointers forward, if failed, go back where '*' starts in p
+// and try a new scenario, return false if all solutions are checked and none of them works, otherwise return true
 
 // solution 1
 class Solution {
@@ -96,5 +97,33 @@ class Solution {
                 }
             }
         }
+    }
+}
+
+//solution 3
+class Solution {
+    public boolean isMatch(String s, String p) {
+        int smark=0,sp=0,pstar=-1,pp=0;
+        while(sp<s.length()){
+            boolean match = pp<p.length() &&(s.charAt(sp)==p.charAt(pp) || p.charAt(pp)=='?');
+            if(match){
+                pp++;
+                sp++;
+            }else if(pp<p.length() && p.charAt(pp)=='*'){
+                pstar = pp;
+                pp++;
+                smark = sp;
+            }else if(pstar!=-1){
+                pp = pstar+1;
+                smark++;
+                sp = smark;
+            }else{
+                return false;
+            }
+        }
+        while(pp<p.length() && p.charAt(pp)=='*'){
+            pp++;
+        }
+        return pp==p.length();
     }
 }
