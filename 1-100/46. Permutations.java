@@ -2,7 +2,13 @@
 // append new int to left part and call recur(newleft,newright)--- befor-> recur(1,23) after--> recur(12,3) and recur(13,2)
 
 // solution 2: same concept but better optimizations
-
+//solution 3: iteration --iterate all res's element, for each element, try to insert current value into 
+// all possible positions of that element, e.g insert 2 in {1}, you will get {1,2} and {2,1}
+// for an example [1,2,3], and result List<List> res,
+// step 1: res is empty, so just insert 1 into res --> {1}
+// step 2: res is {1}, so insert 2 into all positions in {1}, res --> {1,2} and {2,1}
+// step 3: res is {1,2} and {2,1}, insert 3 to {1,2} get {3,1,2},{1,3,2} and {1,2,3}, insert 3 to {2,1} get {3,2,1},{2,3,1} and {2,1,3},
+// thus overall res --> {3,1,2},{1,3,2},{1,2,3},{3,2,1},{2,3,1},{2,1,3}
 class Solution {
     public List<List<Integer>> permute(int[] nums) {
         List<List<Integer>> res = new ArrayList<>();
@@ -47,5 +53,30 @@ class Solution {
                 memo.remove(memo.size()-1);
             }
         }
+    }
+}
+
+//solution 3
+class Solution {
+    public List<List<Integer>> permute(int[] nums) {
+        List<List<Integer>> res = new ArrayList<>();
+        for(int n:nums){
+            if(res.size()==0){
+                res.add( new ArrayList<>(Arrays.asList(n)) );
+            }else{
+                List<List<Integer>> newRes = new ArrayList<>();
+                for(int i=0;i<res.size();i++){
+                    List<Integer> memo = res.get(i);
+                    for(int j=0;j<=memo.size();j++){
+                        List<Integer> temp = new ArrayList<>(memo);
+                        temp.add(j,n);
+                        newRes.add(temp);
+                    }
+                }
+                res = newRes;
+            }        
+        }
+        
+        return res;
     }
 }
