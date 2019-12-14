@@ -53,3 +53,33 @@ class Solution {
         return list;
     }
 }
+
+//solution 3
+class Solution {
+    public List<List<Integer>> permuteUnique(int[] nums) {
+        List<List<Integer>> res = new ArrayList<>();
+        recur(res,nums,0);
+        return res;
+    }
+    public void recur(List<List<Integer>> res,int[] nums,int start){
+        if(start == nums.length-1){
+            List<Integer> t = new ArrayList<>();
+            for(int n:nums) t.add(n);
+            res.add(t);
+        }else{
+            Set<Integer> memo = new HashSet<>();
+            for(int i=start;i<nums.length;i++){
+                if(memo.add(nums[i])){
+                    swap(nums,start,i);
+                    recur(res,nums,start+1);
+                    swap(nums,start,i); 
+                }
+            }
+        }
+    }
+    public void swap(int[]nums,int a,int b){
+        int temp = nums[a];
+        nums[a] = nums[b];
+        nums[b] = temp;
+    }
+}
