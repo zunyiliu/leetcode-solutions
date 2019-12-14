@@ -9,6 +9,9 @@
 // step 2: res is {1}, so insert 2 into all positions in {1}, res --> {1,2} and {2,1}
 // step 3: res is {1,2} and {2,1}, insert 3 to {1,2} get {3,1,2},{1,3,2} and {1,2,3}, insert 3 to {2,1} get {3,2,1},{2,3,1} and {2,1,3},
 // thus overall res --> {3,1,2},{1,3,2},{1,2,3},{3,2,1},{2,3,1},{2,1,3}
+// solution 4: swap based recursion
+
+//solution 1
 class Solution {
     public List<List<Integer>> permute(int[] nums) {
         List<List<Integer>> res = new ArrayList<>();
@@ -78,5 +81,32 @@ class Solution {
         }
         
         return res;
+    }
+}
+
+// solution 4
+class Solution {
+    public List<List<Integer>> permute(int[] nums) {
+        List<List<Integer>> res = new ArrayList<>();
+        recur(res,nums,0,nums.length-1);
+        return res;
+    }
+    public void recur(List<List<Integer>> res,int[] nums,int st,int end){
+        if(st==end){
+            List<Integer> temp = new ArrayList<>();
+            for(int n:nums) temp.add(n);
+            res.add(temp);
+        }else{
+            for(int i=st;i<=end;i++){
+                swap(nums,st,i);
+                recur(res,nums,st+1,end);
+                swap(nums,i,st);
+            }
+        }
+    }
+    public void swap(int[] nums,int a,int b){
+        int t = nums[a];
+        nums[a] = nums[b];
+        nums[b] = t;
     }
 }
