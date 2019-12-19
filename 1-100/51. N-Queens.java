@@ -25,6 +25,8 @@ class Solution {
         for(int i=0;i<mark.length;i++){
             for(int j=0;j<mark.length;j++){
                 if(mark[i][j]){
+                    //here the result works even don't add i==row
+                    //since for each row u only add one queen, so this case willn never appear
                     if(i==row||j==col||Math.abs(i-row)==Math.abs(j-col)){
                         return false;
                     }
