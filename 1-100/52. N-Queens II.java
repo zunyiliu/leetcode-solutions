@@ -1,5 +1,5 @@
 //solution 1:same idea as problem 51, but there's a trick that don't need to actually build the 2D-array, in soluton 2
-//solution 2
+//solution 2:use bitmap to operate and record the queens are right or not
 
 //solution 1
 class Solution {
@@ -35,5 +35,31 @@ class Solution {
             }
         }
         return true;
+    }
+}
+
+//solution 2
+class Solution {
+    int count = 0;
+    public int totalNQueens(int n) {
+        dfs(0,0,0,0,n);
+        return count;
+    }
+    public void dfs(int row,int diag,int antidiag,int col,int n){
+        if(row==n){
+            count++;  
+            return;
+        } 
+        for(int i=0;i<n;i++){
+            int bitdiag = 1<<(row+i); 
+            int bitantidiag = 1<<(i+n-row-1);
+            int bitcol = 1<<i;
+            boolean diagsafe = (diag&bitdiag)==0;
+            boolean antidiagsafe = (antidiag&bitantidiag)==0;
+            boolean colsafe = (bitcol&col) == 0;
+            if(diagsafe&&antidiagsafe&&colsafe){
+                dfs(row+1,1<<(row+i)|diag,1<<(i+n-row-1)|antidiag,1<<i|col,n);
+            }
+        }
     }
 }
