@@ -2,6 +2,8 @@
 // the previous array that contribute positive result(add up the max value), if sum<0, that means the previous array should no longer
 // be used, thus the subarray should be re-calculated from the next pointer
 
+//solution 2：use divide and conquer introduced in CLRS,divide and conquer will split the array into logn time, in each recur,
+//calculate leftmost,rightmost,midmost subarray and return the largest one
 
 // solution 1:
 class Solution {
