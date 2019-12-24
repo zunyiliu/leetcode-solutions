@@ -2,8 +2,10 @@
 // the index that will lead to max length(my own solution, not very good)
 // solution 2: greedy algorithm from the end of the array, moving back forward to see if the pointer can back move to the start 
 // of the array, amazing solution
-// solution 3: backtracking, not efficient algorithm(will exceed time limit in some cases), but easy to understand
+// solution 3: backtracking, not efficient algorithm(will exceed time limit in some cases), but easy to understand(solution 3 is 
+// written myself, can pass 74/75 case except last one time exceeds limit)
 //solution 1
+// solution 4: dynamic programming(solution 4 is written myself, can pass 74/75 case except last one time exceeds limit)
 class Solution {
     public boolean canJump(int[] nums) {
         if(nums.length==0) return true;
@@ -47,5 +49,23 @@ class Solution {
             if(backtrack(nums,p+i)) return true;
         }
         return false;
+    }
+}
+
+// solution 4
+class Solution {
+    public boolean canJump(int[] nums) {
+        Boolean dp[] = new Boolean[nums.length];
+        if(nums.length<=1) return true;
+        return backtrack(nums,0,dp);
+    }
+    public boolean backtrack(int[] nums,int p,Boolean[] dp){
+        if(dp[p]!=null) return dp[p];
+        boolean istrue = false;
+        for(int i=1;i<=nums[p];i++){
+            if(p+i>=nums.length-1) return dp[p] = true;
+            else istrue = istrue||backtrack(nums,p+i,dp);
+        }
+        return dp[p]=istrue;
     }
 }
