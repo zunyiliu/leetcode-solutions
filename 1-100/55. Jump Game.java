@@ -7,6 +7,7 @@
 //solution 1
 // solution 4: dynamic programming(solution 4 is written myself, can pass 74/75 case except last one time exceeds limit)
 // soluton 4.1: a slightly modification of solution 4, so that can pass the case 75
+// solution 5：dynamic programming bot-up -- this is the solution that leads to further think--soltuon 2's greedy algorithm
 class Solution {
     public boolean canJump(int[] nums) {
         if(nums.length==0) return true;
@@ -86,6 +87,27 @@ class Solution {
             if(backtrack(nums,i,dp)) return dp[p] = true;
         }
         return dp[p]=false;
+    }
+}
+
+//solution 5
+class Solution {
+    public boolean canJump(int[] nums) {
+        Boolean dp[] = new Boolean[nums.length];
+        dp[dp.length-1] = true;
+        for(int i=nums.length-1;i>=0;i--){
+            if(dp[i]==null){
+                int max = Math.min(nums.length-1,i+nums[i]);
+                for(int j=i+1;j<=max;j++){
+                    if(dp[j]){
+                        dp[i] = true;
+                        break;
+                    } 
+                }
+                if(dp[i]==null) dp[i] =false;
+            }
+        }
+        return dp[0];
     }
 }
 
