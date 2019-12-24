@@ -73,19 +73,19 @@ class Solution {
 
 // solution 4.1
 class Solution {
-    Boolean[] dp;
     public boolean canJump(int[] nums) {
-        dp = new Boolean[nums.length];
+        Boolean dp[] = new Boolean[nums.length];
         if(nums.length<=1) return true;
         dp[dp.length-1] = true;
-        return backtrack(nums,0);
+        return backtrack(nums,0,dp);
     }
-    public boolean backtrack(int[] nums,int p){
+    public boolean backtrack(int[] nums,int p,Boolean dp[]){
         if(dp[p]!=null) return dp[p];
         int f = Math.min(nums.length-1,p+nums[p]);
         for(int i=1+p;i<=f;i++){
-            if(backtrack(nums,i)) return dp[p] = true;
+            if(backtrack(nums,i,dp)) return dp[p] = true;
         }
         return dp[p]=false;
     }
 }
+
