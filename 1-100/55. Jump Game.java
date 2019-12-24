@@ -1,6 +1,7 @@
 // solution 1: greedy, in each step find the max length the current pointer can go in the step after the next step, move pointer to 
 // the index that will lead to max length(my own solution, not very good)
-// solution 2: greedy algorithm from the end of the array, moving back forward to see if the pointer can back move to the start of the array
+// solution 2: greedy algorithm from the end of the array, moving back forward to see if the pointer can back move to the start 
+// of the array, amazing solution
 
 //solution 1
 class Solution {
@@ -25,3 +26,12 @@ class Solution {
 }
 
 //solution 2
+class Solution {
+    public boolean canJump(int[] nums) {
+        int pointer = nums.length-1;
+        for(int i=nums.length-1;i>=0;i--){
+            if(nums[i]+i>=pointer) pointer = i;
+        }
+        return pointer == 0;
+    }
+}
