@@ -6,6 +6,7 @@
 // written myself, can pass 74/75 case except last one time exceeds limit)
 //solution 1
 // solution 4: dynamic programming(solution 4 is written myself, can pass 74/75 case except last one time exceeds limit)
+// soluton 4.1: a slightly modification of solution 4, so that can pass the case 75
 class Solution {
     public boolean canJump(int[] nums) {
         if(nums.length==0) return true;
@@ -67,5 +68,24 @@ class Solution {
             else istrue = istrue||backtrack(nums,p+i,dp);
         }
         return dp[p]=istrue;
+    }
+}
+
+// solution 4.1
+class Solution {
+    Boolean[] dp;
+    public boolean canJump(int[] nums) {
+        dp = new Boolean[nums.length];
+        if(nums.length<=1) return true;
+        dp[dp.length-1] = true;
+        return backtrack(nums,0);
+    }
+    public boolean backtrack(int[] nums,int p){
+        if(dp[p]!=null) return dp[p];
+        int f = Math.min(nums.length-1,p+nums[p]);
+        for(int i=1+p;i<=f;i++){
+            if(backtrack(nums,i)) return dp[p] = true;
+        }
+        return dp[p]=false;
     }
 }
