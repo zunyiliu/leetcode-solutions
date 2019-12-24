@@ -1,5 +1,8 @@
 // solution 1: greedy, in each step find the max length the current pointer can go in the step after the next step, move pointer to 
-// the index that will lead to max length
+// the index that will lead to max length(my own solution, not very good)
+// solution 2: greedy algorithm from the end of the array, moving back forward to see if the pointer can back move to the start of the array
+
+//solution 1
 class Solution {
     public boolean canJump(int[] nums) {
         if(nums.length==0) return true;
@@ -20,3 +23,5 @@ class Solution {
         return pos>=nums.length-1 || nums[pos]+pos>=nums.length-1;
     }
 }
+
+//solution 2
