@@ -1,5 +1,6 @@
 // solution 1: backtrack, cant pass test since big n will cause stack overflow/time limit exceeds
 // solution 2: same method, a slight optimization so that the time complexity not exceeds the limit
+// solution 3: use math to calculate the index of the result and return the corresponding one
 
 //solution 1
 class Solution {
@@ -52,5 +53,27 @@ class Solution {
                 mark[i] = false;
             }
         }
+    }
+}
+
+//solution 3
+class Solution {
+    public String getPermutation(int n, int k) {
+        int fact = 1;
+        StringBuilder str = new StringBuilder();
+        //let k starts with 0 to be accordant with index that starts from 0
+        k--;
+        List<Integer> list = new ArrayList<>();
+        for(int i=1;i<=n;i++){
+            fact *= i;
+            list.add(i);
+        }
+        for(int i=n;i>=1;i--){
+            fact /= i;
+            int tempK = k/fact;
+            k -= tempK*fact;
+            str.append(list.remove(tempK));
+        }
+        return str.toString();
     }
 }
