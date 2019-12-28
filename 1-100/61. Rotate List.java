@@ -1,4 +1,5 @@
-// solution 1: straightforward solution, will exceed time limit thus can't pass all cases
+// solution 1: straightforward solution
+// solution 2
 
 // solution 1
 class Solution {
@@ -9,6 +10,8 @@ class Solution {
             memo.add(head);
             head = head.next;
         }
+        // k will do duplicate ops for those steps exceed the length of the list
+        k = k%memo.size();
         for(int i=0;i<k;i++){
             memo.add(0,memo.remove(memo.size()-1));
         }
