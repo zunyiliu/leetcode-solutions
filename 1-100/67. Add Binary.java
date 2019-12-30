@@ -1,6 +1,7 @@
 // easy 
 // solution 2: use StringBuilder instead of str+str operation
-// however from the running time seems StringBuilder is not faster than str plus str(they are same)
+// StringBuilder is faster while strs are long(cause if u add two strings directly, in complie phase the strs should be 
+// copied onto StringBuilder firstly)
 
 //solution 1
 class Solution {
