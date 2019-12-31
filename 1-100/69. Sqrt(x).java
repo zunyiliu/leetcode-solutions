@@ -1,5 +1,5 @@
 // solution 1: newton's method maybe? just binary search
-// solution 2: few lines
+// solution 2: few lines, dont spend much time understand the meaning of math equation myselfe(it was copied from the solution of discussion :>)
 
 //solution 1
 class Solution {
