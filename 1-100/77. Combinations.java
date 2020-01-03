@@ -1,5 +1,5 @@
-// solution 1, 1.1 backtracking
-// solution 2 : bfs
+// solution 1, 1.1 backtracking -- dfs
+// solution 2 : bfs, add nums layer by layer
 // solution 3: iteration
 
 // solution 1
@@ -49,7 +49,31 @@ class Solution {
 }
 
 // solution 2
-
+class Solution {
+    public List<List<Integer>> combine(int n, int k) {
+      	List<List<Integer>> res = new ArrayList<>();
+       	if (n < k) return res;
+        
+        while(k>0){
+            List<List<Integer>> res1 = new ArrayList();
+            if(res.size()==0){
+                for(int j=1;j<=n-k+1;j++) res.add(new ArrayList<>(Arrays.asList(j)));
+            }else{
+                for(int i=0;i<res.size();i++){
+                    int num = res.get(i).get(res.get(i).size()-1);
+                    for(int j=num+1;j<=n-k+1;j++){
+                        List<Integer> temp = new ArrayList<>(res.get(i));
+                        temp.add(j);
+                        res1.add(temp);
+                    }
+                }
+                res = res1;
+            }
+            k--;
+        }
+        return res;
+    }
+}
 
 // solution 3
 // both solutions commented/not commented in while loop work, just different way operating pointer
