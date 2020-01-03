@@ -1,5 +1,6 @@
 // solution 1 -- backtrack
 // solution 2 -- iteration
+// solution 3 -- Lexicographic (Binary Sorted) Subsets -- from leetcode solution
 
 // solution 1
 class Solution {
@@ -35,3 +36,5 @@ class Solution {
         return res;
     }
 }
+
+// solution 3
