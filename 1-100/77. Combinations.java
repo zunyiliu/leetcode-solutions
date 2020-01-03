@@ -1,5 +1,8 @@
-// backtracking
+// solution 1, 1.1 backtracking
+// solution 2 : bfs
+// solution 3: iteration
 
+// solution 1
 class Solution {
     List<List<Integer>> res;
     public List<List<Integer>> combine(int n, int k) {
@@ -20,6 +23,7 @@ class Solution {
     }
 }
 
+// solution 1.1
 // one line optimization
 class Solution {
     List<List<Integer>> res;
@@ -43,3 +47,5 @@ class Solution {
         }
     }
 }
+
+// solution 2
