@@ -49,3 +49,40 @@ class Solution {
 }
 
 // solution 2
+
+
+// solution 3
+// both solutions commented/not commented in while loop work, just different way operating pointer
+class Solution {
+    public List<List<Integer>> combine(int n, int k) {
+      	List<List<Integer>> res = new ArrayList<>();
+       	if (n < k) return res;
+        Integer[] cur = new Integer[k];
+        for (int i = 0; i < k; i++) cur[i] = i+1;
+        int p = k-1;
+        while(p>=0){
+            // if(p==k-1){
+            //     res.add(new ArrayList(Arrays.asList(cur)));
+            //     if(cur[p]==p+n-k+1) p--;
+            //     else cur[p]++;
+            // }else{
+            //     if(cur[p]<p+n-k+1){
+            //         cur[p]++;
+            //         for(int i=p+1;i<k;i++) cur[i] = cur[i-1]+1;
+            //         p = k-1;               
+            //     }else p--;
+            // }
+            if(cur[p]<=p+n-k+1){
+                if(p==k-1){
+                    res.add(new ArrayList(Arrays.asList(cur)));
+                    cur[p]++;
+                }else{
+                    cur[p]++;
+                    for(int i=p+1;i<k;i++) cur[i] = cur[i-1]+1;
+                    p = k-1;
+                }
+            }else p--;
+        }
+        return res;
+    }
+}
