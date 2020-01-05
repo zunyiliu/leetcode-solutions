@@ -2,8 +2,9 @@
 // if not, move forward to the next node which has non-duplicate val as the current node, change cur's reference to the one move to
 // then keep scanning current code until the end
 // many edge cases should concern, like for the first node is duplicate, the last node is duplicate etc
-// solution 1 may not good logic though runs fairly fast, wrote by myself
+// solution 1 may not good logic though runs fairly fast, initially wrote
 
+// solution 2: modified optimization by applying a fake head (in linked-node operation this is a common method)
 
 // solution 1
 class Solution {
@@ -39,5 +40,30 @@ class Solution {
     public boolean scan(ListNode cur){
         if(cur.next==null || cur.next.val!=cur.val) return true;
         return false;
+    }
+}
+
+// solution 2
+class Solution {
+    public ListNode deleteDuplicates(ListNode head) {
+        ListNode fakehead = new ListNode(-99);
+        ListNode pre = fakehead;
+        ListNode cur = head;
+        ListNode cur2;
+        while(cur!=null){
+            if(cur.next==null || cur.val!=cur.next.val){
+                pre.next = cur;
+                pre = cur;
+                cur = cur.next;
+            }else{
+                cur2 = cur.next;
+                while(cur2!=null && cur2.val==cur.val){
+                    cur2 = cur2.next;
+                }
+                cur = cur2;
+            }
+        }
+        pre.next = null;
+        return fakehead.next;
     }
 }
