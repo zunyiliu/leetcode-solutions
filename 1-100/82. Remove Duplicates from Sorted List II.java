@@ -6,6 +6,7 @@
 
 // solution 2: modified optimization by applying a fake head (in linked-node operation this is a common method)
 // solution 3: a slightly differen logic from leetcode
+// solution 4: recursion
 
 // solution 1
 class Solution {
@@ -87,5 +88,23 @@ class Solution {
             cur = cur.next;
         }
         return fakehead.next;
+    }
+}
+
+// solution 4
+class Solution {
+    public ListNode deleteDuplicates(ListNode head) {
+        if(head==null || head.next==null ) return head;
+        
+        if(head.next.val==head.val){
+            while(head.next!=null && head.val==head.next.val){
+                head = head.next;
+            }
+            head = head.next;
+            return deleteDuplicates(head);
+        }else{
+            head.next = deleteDuplicates(head.next);
+            return head;
+        }
     }
 }
