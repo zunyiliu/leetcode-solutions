@@ -45,6 +45,7 @@ class Solution {
 }
 
 // solution 2
+// this can also be optimized by not using cur2
 class Solution {
     public ListNode deleteDuplicates(ListNode head) {
         ListNode fakehead = new ListNode(-99);
