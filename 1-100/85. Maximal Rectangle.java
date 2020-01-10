@@ -1,10 +1,9 @@
 // solution 1: stack based solution, a variation of No.84, for each row u have to deal with a largest rectangle histogram issue
 // (对每一行都是以该行为底的直方图求一次stack based最大长方形的面积)
 
-// solution 2: stack based dp solution, same concept as dp in 84, u could know it if u undetstand that problem(this is actually a 
+// solution 2: dp solution, same concept as dp in 84, u could know it if u undetstand that problem(this is actually a 
 // transformation of solution 1 while 1 uses stack and this uses dp to record each line's left most and right most expandable index)
 
-// solution 3: from discussion true dp solution, very hard to understand 
 
 // solution 1: 
 class Solution {
