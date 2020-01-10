@@ -3,6 +3,7 @@
 
 // solution 2: dp solution, same concept as dp in 84, u could know it if u undetstand that problem(this is actually a 
 // transformation of solution 1 while 1 uses stack and this uses dp to record each line's left most and right most expandable index)
+// all 3 solutions in no.84 can be implemented here, the 1st one is not re-implemented since it's naive, and will cost O(n^3) time comlexity
 
 
 // solution 1: 
