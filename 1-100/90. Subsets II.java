@@ -1,4 +1,5 @@
 // solution 1 & 1.1: backtracking same concept but add time different
+// solution 2 : iteration solution, should consider previous res's size, for not doing duplicate nums in array
 
 //olution 1
 class Solution {
@@ -42,5 +43,28 @@ class Solution {
                 }
             }
         }
+    }
+}
+
+// solution 2
+class Solution {
+    public List<List<Integer>> subsetsWithDup(int[] nums) {
+        List<List<Integer>> res = new ArrayList();
+        Arrays.sort(nums);
+        res.add(new ArrayList());
+        
+        int size = 0;
+        for(int i=0;i<nums.length;i++){
+            int stsize;
+            if(i==0 || nums[i-1]!=nums[i]) stsize = 0;
+            else stsize = size;
+            size = res.size();
+            for(int j=stsize;j<size;j++){
+                List<Integer> tp = new ArrayList(res.get(j));
+                tp.add(nums[i]);
+                res.add(tp);
+            }  
+        }
+        return res;
     }
 }
