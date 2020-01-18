@@ -8,6 +8,8 @@
 // 2->3->4->5, swap 2 with 5, 3 with 4, to get the reversed portion (count is used for limiting swap operation, i.e. after swap 2 with 5
 // and swap 4 with 3, u will go further and swap them back if not stop, this can also be achieved by applying a boolean value stop)
 
+// solution 3: iterative solution modified by solution 1 (same concept)
+
 // solution 1
 class Solution {
     ListNode tail;
@@ -68,5 +70,32 @@ class Solution {
         left.val = right.val;
         right.val = t;
         left = left.next;
+    }
+}
+
+// solution 3
+class Solution {
+    public ListNode reverseBetween(ListNode head, int m, int n) {
+        ListNode dummy = new ListNode(-1);
+        dummy.next = head;
+        ListNode cur = head, pre = dummy;
+        while (m > 1) {
+            pre = pre.next;
+            m--;
+            n--;
+        }
+        cur = pre.next;
+        ListNode pre_r = pre, cur_r = cur;
+        while(n>0){
+            ListNode t = cur.next;
+            cur.next = pre;
+            pre = cur;
+            cur = t;
+            n--;
+        }
+        pre_r.next = pre;
+        cur_r.next = cur;
+        
+        return dummy.next;
     }
 }
