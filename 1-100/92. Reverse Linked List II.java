@@ -5,7 +5,8 @@
 // ur 2nd task is to reverse the portion which is making 2->3->4->5 to become 5->4->3->2
 
 // solution 2: recursion in a different mannaer (referenced by leetcode solution 1). reverse the order of the portion, e.g
-// 2->3->4->5, swap 2 with 5, 3 with 4, to get the reversed portion
+// 2->3->4->5, swap 2 with 5, 3 with 4, to get the reversed portion (count is used for limiting swap operation, i.e. after swap 2 with 5
+// and swap 4 with 3, u will go further and swap them back if not stop, this can also be achieved by applying a boolean value stop)
 
 // solution 1
 class Solution {
@@ -39,3 +40,33 @@ class Solution {
 }
 
 // solution 2
+class Solution {
+    ListNode left;
+    int count;
+    public void recur(ListNode right, int m, int n,int tcount) {
+        if(m>1) {
+            left = left.next;
+            recur(right.next,m-1,n-1,tcount);
+        }else{
+            if(n>=1){
+                count++;
+                tcount = count;
+                recur(right.next,m-1,n-1,tcount);
+                if(tcount>count/2) swap(right);
+            }    
+        }
+    }
+
+    public ListNode reverseBetween(ListNode head, int m, int n) {
+        left = head;
+        count = 0;
+        recur(head,m,n,count);
+        return head;
+    }
+    public void swap(ListNode right){
+        int t = left.val;
+        left.val = right.val;
+        right.val = t;
+        left = left.next;
+    }
+}
