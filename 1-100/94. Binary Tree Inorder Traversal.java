@@ -1,5 +1,7 @@
 // solution 1 : recursive tree traversal
 // solution 2 : stack based traversal, will break tree nodes' val to indicate a node has been travelled
+// solution 2.1: modification of solution 2 to avoid breaking tree nodes' init values
+// solution 3: another stack based solution, different concept as solution 2 and 2.1
 class Solution {
 	public List<Integer> inorderTraversal(TreeNode root){
 		List<Integer> res = new ArrayList();
@@ -17,7 +19,7 @@ class Solution {
 
 // solution 2
 class Solution {
-	public List<Integer> inorderTraversal(TreeNode root){
+    public List<Integer> inorderTraversal(TreeNode root){
         List<Integer> res = new ArrayList();
         if(root == null) return res;
         Stack<TreeNode> stack = new Stack();
@@ -33,4 +35,29 @@ class Solution {
         }
         return res;
     }
+}
+
+// solution 2.1
+class Solution {
+	public List<Integer> inorderTraversal(TreeNode root){
+		List<Integer> res = new ArrayList();
+		if(root == null) return res;
+		Stack<TreeNode> stack = new Stack();
+		stack.push(root);
+		TreeNode cur = root.left;
+		while(!stack.isEmpty()){
+		    if(cur!=null) {
+			stack.push(cur);
+			cur = stack.peek().left;
+		    }else{
+			TreeNode t = stack.pop();
+			res.add(t.val);
+			if(t.right!=null){
+			    stack.push(t.right);
+			    cur = stack.peek().left;
+			} 
+		    }
+		}
+		return res;
+	}
 }
