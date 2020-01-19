@@ -2,6 +2,7 @@
 // solution 2 : stack based traversal, will break tree nodes' val to indicate a node has been travelled
 // solution 2.1: modification of solution 2 to avoid breaking tree nodes' init values
 // solution 3: another stack based solution, different concept as solution 2 and 2.1
+// solution 4: morris traverse
 class Solution {
 	public List<Integer> inorderTraversal(TreeNode root){
 		List<Integer> res = new ArrayList();
