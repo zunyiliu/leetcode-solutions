@@ -2,7 +2,8 @@
 // solution 2 : stack based traversal, will break tree nodes' val to indicate a node has been travelled
 // solution 2.1: modification of solution 2 to avoid breaking tree nodes' init values
 // solution 3: another stack based solution, different concept as solution 2 and 2.1
-// solution 4: morris traverse
+// solution 4.1: morris traverse, 4.1 will break tree structure
+// solution 4.2: morris traverse, 4.2 wont break tree structure
 class Solution {
 	public List<Integer> inorderTraversal(TreeNode root){
 		List<Integer> res = new ArrayList();
@@ -38,6 +39,30 @@ class Solution {
     }
 }
 
+// solution 4.1
+class Solution {
+    public List<Integer> inorderTraversal(TreeNode root) {
+        List<Integer> res = new ArrayList();
+        TreeNode cur = root;
+        TreeNode pre;
+        while(cur!=null){
+            if(cur.left==null){
+                res.add(cur.val);
+                cur = cur.right;
+            }else{
+                pre = cur.left;
+                TreeNode t = pre;
+                while(t.right!=null){
+                    t = t.right;
+                }
+                t.right = cur;
+                cur.left = null;
+                cur = pre;
+            }
+        }
+        return res;
+    }
+}
 // solution 2.1
 class Solution {
 	public List<Integer> inorderTraversal(TreeNode root){
@@ -77,6 +102,31 @@ class Solution {
             cur = stack.pop();
             res.add(cur.val);
             cur = cur.right;
+        }
+        return res;
+    }
+}
+
+// solution 4.1
+class Solution {
+    public List<Integer> inorderTraversal(TreeNode root) {
+        List<Integer> res = new ArrayList();
+        TreeNode cur = root;
+        TreeNode pre;
+        while(cur!=null){
+            if(cur.left==null){
+                res.add(cur.val);
+                cur = cur.right;
+            }else{
+                pre = cur.left;
+                TreeNode t = pre;
+                while(t.right!=null){
+                    t = t.right;
+                }
+                t.right = cur;
+                cur.left = null;
+                cur = pre;
+            }
         }
         return res;
     }
