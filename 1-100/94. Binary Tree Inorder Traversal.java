@@ -4,6 +4,8 @@
 // solution 3: another stack based solution, different concept as solution 2 and 2.1
 // solution 4.1: morris traverse, 4.1 will break tree and not recover the initial structure
 // solution 4.2: morris traverse, 4.2 will recover the init structure
+
+// solution 1
 class Solution {
 	public List<Integer> inorderTraversal(TreeNode root){
 		List<Integer> res = new ArrayList();
@@ -39,30 +41,6 @@ class Solution {
     }
 }
 
-// solution 4.1
-class Solution {
-    public List<Integer> inorderTraversal(TreeNode root) {
-        List<Integer> res = new ArrayList();
-        TreeNode cur = root;
-        TreeNode pre;
-        while(cur!=null){
-            if(cur.left==null){
-                res.add(cur.val);
-                cur = cur.right;
-            }else{
-                pre = cur.left;
-                TreeNode t = pre;
-                while(t.right!=null){
-                    t = t.right;
-                }
-                t.right = cur;
-                cur.left = null;
-                cur = pre;
-            }
-        }
-        return res;
-    }
-}
 // solution 2.1
 class Solution {
 	public List<Integer> inorderTraversal(TreeNode root){
