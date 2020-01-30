@@ -8,7 +8,18 @@
 // another key point is the offset, that is, all subtrees with length i are sharing the same structure as stored in dp[i], the
 // only difference is the values stored in each treee is different, thus plus an offset is neccessary.
 
-// solution 3: another dp
+// solution 3: another dp, any num i+1's result can be acquired by transition of result of num i. For each tree of num i, since the
+// newly added value is the biggest one i+1, for each tree in num i's set, it can only be inserted in root of the tree, root's right
+// child of the tree, root's right's child of the tree, so on and so forth until it has no more right child
+// e.g. for a tree of result of num 2, if num 3 wants to be inserted, the position could be:
+
+// 1            1. root of the tree     2. root's right child   3. root's right child's right child
+//  \                 3                     1                   1
+//   2     --->        \                     \                   \
+//                       1                    3                   2
+//                        \                  /                     \
+//                         2                2                       3    
+
 class Solution {
     public List<TreeNode> generateTrees(int n) {
         if(n<=0) return new ArrayList();
