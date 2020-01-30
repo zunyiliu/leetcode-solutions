@@ -69,3 +69,49 @@ class Solution {
         return t;
     }
 }
+
+// solution 3
+class Solution {
+    public List<TreeNode> generateTrees(int n) {
+        List<TreeNode> pre = new ArrayList();
+        if(n==0) return pre;
+        pre.add(new TreeNode(1));
+        
+        for(int i=2;i<=n;i++){
+            List<TreeNode> cur = new ArrayList();
+            for(TreeNode prenode:pre){
+                TreeNode t = new TreeNode(i);
+                t.left = prenode;
+                cur.add(t);
+                int count = 0;
+                while(true){
+                    TreeNode head = clone(prenode);
+                    TreeNode clone = head;
+                    for(int k=0;k<count;k++){
+                        clone = clone.right;
+                    }
+                    TreeNode clone_r = clone.right;
+                    // e.g. [1,2] and insert 3
+                    // step 1, insert 3 as 1's right node
+                    // step 2, insert 1's previous right node as node 3's current left node
+                    clone.right = new TreeNode(i);
+                    clone.right.left = clone_r;
+                    // done, add into cur
+                    cur.add(head);
+                    // detect if ended
+                    if(clone_r==null) break;
+                    count++;
+                }
+            }
+            pre = cur;
+        }
+        return pre;
+    }
+    public TreeNode clone(TreeNode node){
+        if(node == null) return null;
+        TreeNode cloned = new TreeNode(node.val);
+        cloned.left = clone(node.left);
+        cloned.right = clone(node.right);
+        return cloned;
+    }
+}
