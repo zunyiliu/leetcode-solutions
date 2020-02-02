@@ -39,3 +39,41 @@ class Solution {
 }
 
 // solution 2
+class Solution {
+    TreeNode pre = new TreeNode(Integer.MIN_VALUE);
+    TreeNode first = null;
+    TreeNode second = null;
+    public void recoverTree(TreeNode root) {
+        while(root!=null){
+            TreeNode parent = root.left;
+            if(parent==null) {
+                visit(root);
+                root = root.right;
+            }else{
+                while(parent.right!=null && parent.right!=root){
+                    parent = parent.right;
+                }
+                if(parent.right == root){
+                    visit(root);
+                    parent.right = null;
+                    root = root.right;
+                }else{
+                    parent.right = root;
+                    root = root.left;
+                }
+            }
+        }
+        int temp = first.val;
+        first.val = second.val;
+        second.val = temp;
+    }
+    public void visit(TreeNode cur){
+        if(pre.val>cur.val){
+            if(first == null){
+                first = pre;
+            }
+            second = cur;
+        }
+        pre = cur;
+    }
+}
