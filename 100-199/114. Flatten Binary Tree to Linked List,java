@@ -1,6 +1,6 @@
 // solution 1: backtracking, for re-constrcut the tree structure in-place, reverse the visit order
 // of pre-order traverse and each time do the operation
-// solution 2:
+// solution 2: iteration, similar as morris traverse
 
 // solution 1
 class Solution {
@@ -20,3 +20,26 @@ class Solution {
 }
 
 // solution 2
+class Solution {
+    TreeNode pre = null;
+    public void flatten(TreeNode root) {
+        while(root!=null){
+            if(root.left==null) root = root.right;
+            else{
+                TreeNode tmp = root.left;
+                TreeNode lmr = leftmostright(tmp);
+                lmr.right = root.right;
+                root.right = root.left;
+                root.left = null;
+                root = root.right;
+            }
+        }
+    }
+    public TreeNode leftmostright(TreeNode tmp){
+        while(tmp.left!=null || tmp.right!=null){
+            if(tmp.right!=null) tmp = tmp.right;
+            else tmp=tmp.left;
+        }
+        return tmp;
+    }
+}
