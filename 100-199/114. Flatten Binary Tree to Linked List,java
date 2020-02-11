@@ -1,0 +1,22 @@
+// solution 1: backtracking, for re-constrcut the tree structure in-place, reverse the visit order
+// of pre-order traverse and each time do the operation
+// solution 2:
+
+// solution 1
+class Solution {
+    TreeNode pre = null;
+    public void flatten(TreeNode root) {
+        if(root!=null){
+            flatten(root.right);
+            flatten(root.left);
+            traverse(root);
+        }        
+    }
+    public void traverse(TreeNode node){
+        node.right = pre;
+        node.left = null;
+        pre = node;
+    }
+}
+
+// solution 2
