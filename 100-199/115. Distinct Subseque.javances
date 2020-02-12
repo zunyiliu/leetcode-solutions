@@ -1,0 +1,21 @@
+// solution 1: 2-D array, bot-up DP
+// solution 2: top-down DP
+
+// solution 1
+class Solution {
+    public int numDistinct(String s, String t) {
+        int [][]memo = new int[s.length()+1][t.length()+1];
+        for(int i=0;i<s.length()+1;i++) memo[i][0] = 1;                
+        for(int j=1;j<t.length()+1;j++) memo[0][j] = 0;
+        
+        for(int i=1;i<s.length()+1;i++){
+            for(int j=1;j<t.length()+1;j++){
+                if(s.charAt(i-1)==t.charAt(j-1)) memo[i][j]=memo[i-1][j-1]+memo[i-1][j];
+                else memo[i][j] = memo[i-1][j];
+            }
+        }
+        return memo[s.length()][t.length()];
+    }
+}
+
+// solution 2
