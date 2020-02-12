@@ -41,13 +41,14 @@ class Solution {
 class Solution {
     public Node connect(Node root) {
         Node p = root;
+        
         while(p!=null && p.left!=null){
             recur(p);
             p = p.left;
         }
-        return p;
+        return root;
     }
-    public void recur(Node root){
+    public void recur(Node p){
         while(p!=null){
             p.left.next = p.right;
             p.right.next = p.next==null? null:p.next.left;
