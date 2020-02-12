@@ -19,3 +19,17 @@ class Solution {
 }
 
 // solution 2
+class Solution {
+    public int numDistinct(String s, String t) {
+        Integer [][]memo = new Integer[s.length()+1][t.length()+1];
+        return recur(s.length(),t.length(),s,t,memo);
+    }
+    public int recur(int m,int n,String s,String t,Integer[][] memo){
+        if(memo[m][n]!=null) return memo[m][n];
+        if(n==0) return memo[m][n] = 1;
+        if(m==0) return memo[m][n] = 0;
+        if(s.charAt(m-1)==t.charAt(n-1)) 
+            return memo[m][n] = recur(m-1,n-1,s,t,memo)+recur(m-1,n,s,t,memo);
+        else return memo[m][n] = recur(m-1,n,s,t,memo);
+    }
+}
