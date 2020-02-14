@@ -1,6 +1,7 @@
 // solution 1: 2D-array DP, O(n^2) space complexity. The mind is that the current row's min path sum is determined by 
 // pre row's min path sum plus current row's corresponding cell's value
-// solution 2
+// solution 2: 1D-array DP, O(n) space, the optimization is to start from the tail of the list, so each time update the n-length
+// array is sufficient(try to walk from bot to top, the array is to maintain the minimum sum path from each starting bottom cell)
 
 // solution 1
 class Solution {
@@ -22,5 +23,18 @@ class Solution {
             if(res[res.length-1][i]<min) min = res[res.length-1][i];
         }
         return min;
+    }
+}
+
+// solution 2
+class Solution {
+    public int minimumTotal(List<List<Integer>> t) {
+        int array[] = new int[t.size()+1];
+        for(int i=t.size()-1;i>=0;i--){
+            for(int j=0;j<t.get(i).size();j++){
+                array[j] = Math.min(array[j],array[j+1])+t.get(i).get(j);
+            }
+        }
+        return array[0];
     }
 }
