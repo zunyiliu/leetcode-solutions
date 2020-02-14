@@ -1,3 +1,4 @@
+//**very interesting problem!***//
 //*** this should be a same problem as in CLRS, for a given stock price graph, find the best strategy to sell and buy stock
 //*** once and get the most profit, the book has given some interesting ideas for the problem(such as max subarray)
 
@@ -5,7 +6,11 @@
 // index i, then for any index i, u can know the min value on its left side and the max value on its right side. loop and calculate the 
 // max result, this is not a very efficient algorith since it finds all best profit for all days' sell
 
-// solution 2:
+// solution 2: interesting solution, iterate the array, if the current iterated cell has a smaller value than previous, change
+// the min value to be the current one, otherwise there must be a profit (current value minus min value), compare the profit to
+// the max profit, so keep track the max profit and min value, iterate the array can get the final max result
+
+// solution 3: interesting solution, finding max subarray(Kadane's algorithm)
 
 // solution 1
 class Solution {
@@ -29,3 +34,27 @@ class Solution {
 }
 
 //solution 2
+class Solution {
+    public int maxProfit(int[] prices) {
+        if(prices.length<=1) return 0;
+        int min = prices[0];
+        int profit = 0;
+        for(int i=0;i<prices.length;i++){
+            if(prices[i]<min) min = prices[i];
+            else profit = Math.max(profit,prices[i]-min);
+        }
+        return profit;
+    }
+}
+
+// solution 3
+class Solution {
+    public int maxProfit(int[] prices) {
+        int cur = 0, max = 0;        
+        for(int i=1;i<prices.length;i++){
+            cur = Math.max(0,cur+=prices[i]-prices[i-1]);
+            max = Math.max(cur,max);  
+        }
+        return max;
+    }
+}
