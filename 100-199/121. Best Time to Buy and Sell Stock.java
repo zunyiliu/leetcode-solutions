@@ -12,6 +12,8 @@
 
 // solution 3: interesting solution, finding max subarray(Kadane's algorithm)
 
+// solution 4: encouraged by the problem 123 O(n) solution, for each step imagine if we buy the stock or sell the stock
+
 // solution 1
 class Solution {
     public int maxProfit(int[] prices) {
@@ -56,5 +58,17 @@ class Solution {
             max = Math.max(cur,max);  
         }
         return max;
+    }
+}
+
+// solution 4
+class Solution {
+    public int maxProfit(int[] prices) {
+        int b = -999999, s = 0;    
+        for(int i=0;i<prices.length;i++){ 
+            b = Math.max(b,-prices[i]);
+            s = Math.max(s,b+prices[i]);
+        }
+        return s;
     }
 }
