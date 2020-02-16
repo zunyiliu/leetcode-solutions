@@ -5,6 +5,8 @@
 // assume if you 2nd buy the stock, assume if you 2nd sell the stock. The key is for the 2nd buy stock, your actual
 // cost is the profit earned by 1st transaction minus current stock'price, so 2nd buy should = 1st transaction - 2nd buy's price
 
+// solution 3: 2D-array DP
+
 // solution 1
 class Solution {
     public int maxProfit(int[] prices) {
@@ -44,5 +46,27 @@ class Solution {
             s2 = Math.max(s2,b2+prices[i]);
         }
         return s2;
+    }
+}
+
+// solution 3
+class Solution {
+    public int maxProfit(int[] prices) {
+        // dp[i][j], i stands for K, j stands for
+        // length of prices, 0 means while prices.length==0;
+        int dp[][] = new int[3][prices.length+1];
+        for(int k=1;k<3;k++){
+            for(int i=2;i<prices.length+1;i++){
+                int max = -99999;
+                for(int j=1;j<i;j++){
+                    // day i sell, day j buy
+                    max = Math.max(max,dp[k-1][j-1]+prices[i-1]-prices[j-1]);
+                }
+                // dp[k][i-1] is in day i not sell 
+                // max is the max profit could be gained if in day i sells
+                dp[k][i] = Math.max(dp[k][i-1],max);
+            }
+        }
+        return dp[2][prices.length];
     }
 }
