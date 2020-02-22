@@ -1,4 +1,7 @@
-// solution 1: naive DFS backtrack solution, will exceed time limitation for some cases
+// solution 1: DFS backtrack solution, will exceed time limitation for some cases(since by using DFS u can't find the shortest
+// path firstly, there might be 10 paths with length from 10 to 1, and your result finding sequence may follow as descending order
+// from 10 to 1, thus time consumption wasted a lot)
+// solution 2: BFS, from BFS your first finding sequence is the shortest path, there might be multiple shortest paths at the same time
 
 // solution 1
 class Solution {
@@ -40,3 +43,6 @@ class Solution {
         return count==1;
     }
 }
+
+// solution 2
+
