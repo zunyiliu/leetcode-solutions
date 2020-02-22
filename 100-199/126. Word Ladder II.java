@@ -45,4 +45,61 @@ class Solution {
 }
 
 // solution 2
-
+class Solution {
+    public List<List<String>> findLadders(String beginWord, String endWord, List<String> wordList) {
+        List<List<String>> res = new ArrayList();
+        if (wordList == null || wordList.size() == 0) return res;
+        Set<String> wordDict = new HashSet(wordList);
+        if (!wordDict.contains(endWord)) return res;
+        
+        Map<String, List<String>> graph = new HashMap();
+        Set<String> curLevel = new HashSet();
+        
+        curLevel.add(beginWord);
+        boolean foundEnd = false;
+        
+        while (!curLevel.isEmpty() && !foundEnd) {
+            wordDict.removeAll(curLevel); //this is important for minimizing the graph size, and avoid backtrack of the path
+            Set<String> nextLevel = new HashSet();
+            for (String s : curLevel) {
+                graph.put(s, new ArrayList<String>());
+                char[] cur = s.toCharArray();
+                for (int j = 0; j < cur.length; j++) {
+                    char c = cur[j];
+                    for (char r = 'a'; r <= 'z'; r++) {
+                        if (r == c) continue;
+                        cur[j] = r;
+                        String temp = new String(cur);
+                        if (!wordDict.contains(temp)) continue;
+                        graph.get(s).add(temp);
+                        nextLevel.add(temp);
+                        if (temp.equals(endWord)) {
+                            foundEnd = true;
+                        };
+                    }
+                    cur[j] = c;
+                }
+            }
+            curLevel = nextLevel;
+        }
+        if (!foundEnd) return res;
+        List<String> list = new ArrayList();
+        list.add(beginWord);
+        addPath(beginWord, endWord, res, graph, list);
+        return res;
+    }
+    
+    private void addPath(String from, String to,  List<List<String>> res, 
+                         Map<String, List<String>> graph, List<String> list) {
+        if (from.equals(to)) {
+            res.add(new ArrayList(list));
+            return;
+        }
+        if (!graph.containsKey(from)) return;
+        for (String next : graph.get(from)) {
+            list.add(next);
+            addPath(next, to, res, graph, list);
+            list.remove(list.size() - 1);
+        }
+    }
+}
