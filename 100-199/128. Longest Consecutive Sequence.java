@@ -1,5 +1,7 @@
 // solution 1: use map keep track consecutive arrays, for each of the array the length is stored in the 
 // leftmost and rightmost boundary
+// solution 2: use set, O(2n) time complexity, for each num expand its longest length and delete those nums in the current path
+// solution 3: use union find algorithm
 
 // solution 1 
 class Solution {
@@ -23,5 +25,25 @@ class Solution {
             }
         }
         return res;
+    }
+}
+
+// solution 2
+class Solution {
+    public int longestConsecutive(int[] nums) {
+        Set<Integer> set = new HashSet();
+        for(int n:nums) set.add(n);
+        int max = 0;
+        for(int n:set){
+            if(!set.contains(n+1)){
+                int count = 0;
+                while(set.contains(n)){
+                    n = n-1;
+                    count++;
+                }
+                max = Math.max(max,count);
+            }
+        }
+        return max;
     }
 }
