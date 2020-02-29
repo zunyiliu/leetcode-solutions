@@ -1,4 +1,6 @@
 // solution 1: bfs, the key is keeping track of the nodes that stored in an array
+// the array that stores the nodes can also be modified by introducing a HashMap storing all the nodes
+// and for a HashMap search also takes O(1)
 
 /*
 // Definition for a Node.
