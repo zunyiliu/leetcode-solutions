@@ -1,11 +1,11 @@
 // solution 1: naive way, nested-for loop to check every possible value and return the max one
 // solution 2: stack based algorithm, hard to understand
 
-// solution 3: dp, for each index i in height[], assume the left most index i1 that all indices between i1 and i have a higher or equal
+// solution 3: using memory, for each index i in height[], assume the left most index i1 that all indices between i1 and i have a higher or equal
 // height than height[i], same concept assuming the right most index i2. We can know the max rectangle expanding from i is
 // (i2-i1+1)*height[i]. We can also know that the max rectangle from all indices must be among these values, return the max one so 
 // the max value is found
-// the dp is used for recording left most and right most index for each i in height[], so that time complexity will become O(n)
+// the memory is used for recording left most and right most index for each i in height[], so that time complexity will become O(n)
 // instead of O(n^2)
 
 // solution 1
@@ -47,7 +47,6 @@ class Solution {
 // solution 3
 public class Solution {
     public int largestRectangleArea(int[] height) {
-        Stack<Integer> stack = new Stack();
         int max = 0;
         // left most index that cur i can expand
         int []l = new int[height.length];
