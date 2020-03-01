@@ -2,6 +2,8 @@
 // the array that stores the nodes can also be modified by introducing a HashMap storing all the nodes
 // and for a HashMap search also takes O(1)
 
+// solution 2: dfs solution, can modify a bit to make method call dfs be void, and pass return node as parameter so
+// it may easier to understand
 /*
 // Definition for a Node.
 class Node {
@@ -24,6 +26,8 @@ class Node {
     }
 }
 */
+
+// solution 1
 class Solution {
     public Node cloneGraph(Node node) {
         if(node==null) return null;
@@ -49,5 +53,25 @@ class Solution {
             }
         }
         return nodes[n.val];
+    }
+}
+
+// solution 2
+class Solution {
+    public Node cloneGraph(Node node) {
+        if(node==null) return null;
+        HashMap<Integer,Node> map = new HashMap();
+        return dfs(map,node);
+    }
+    public Node dfs(HashMap<Integer,Node> map, Node node){
+        Node root = new Node(node.val);
+        map.put(root.val,root);
+        for(Node nei:node.neighbors){
+            if(!map.containsKey(nei.val)){
+                dfs(map,nei);
+            }
+            root.neighbors.add(map.get(nei.val));
+        }
+        return root;
     }
 }
