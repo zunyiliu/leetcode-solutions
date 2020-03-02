@@ -1,5 +1,8 @@
 // solution 1: naive solution, iterate all starting point and try all of them, O(n^2) time complexity
-// solution 2: brilliant solution O(n) time complexity
+// solution 2: brilliant solution O(n) time complexity, pre-set start at the end station and end at start station
+// each time expand end as far as possible, if sum reduces below 0 before end reaches start then the check last station before
+// start (index in start-1), do this till end reaches start, if sum >= 0 then the station is the desired start station, otherwise
+// there's no station could be selected
 
 // solution 1
 class Solution {
