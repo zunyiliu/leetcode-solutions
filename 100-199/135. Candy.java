@@ -4,6 +4,14 @@
 // solution 2: brute force O(n^2), 1st iteration, give all children 1 candy, 2nd iteration, give those children with higher
 // ratings than their number one more candy, so on and so force, maximum n traverse required
 
+// solution 3: use two traverse, O(n) time complexity and O(n) sapce complexity
+// first traverse left to right, to calculate all candies distributed for children only applies to left
+// then traverse from right to left, update candies apply for both left and right
+
+// solution 4: O(1) space complexity, using slope up and down to record the peak (like climbing mountain, only when you
+// go down you can know how many extra steps you should extra increase). For example you go 3 steps to reach the peak, and 4 steps to
+// the bot, the peak should be lifted by 1 to satisfy both left and right
+
 class Solution {
     public int candy(int[] ratings) {
         // mapping for storing rate-index mapping
@@ -69,3 +77,24 @@ public class Solution {
         return sum;
     }
 }
+
+// solution 3
+public class Solution {
+    public int candy(int[] ratings) {
+        int[] candies = new int[ratings.length];
+        Arrays.fill(candies, 1);
+        int sum = 0;
+        for(int i=1;i<ratings.length;i++){
+            if(ratings[i]>ratings[i-1]) candies[i] = candies[i-1]+1;
+        }
+        for(int i=ratings.length-2;i>=0;i--){
+            if(ratings[i]>ratings[i+1]){
+                candies[i] = Math.max(candies[i],candies[i+1]+1);
+            }
+            sum += candies[i];
+        }
+        return sum+candies[ratings.length-1];
+    }
+}
+
+//solution 4
