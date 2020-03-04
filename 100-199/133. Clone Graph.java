@@ -76,7 +76,7 @@ class Solution {
     }
 }
 
-// a clearer dfs rather than previous solution 2
+// a clearer dfs rather than previous solution 2, same concept
 class Solution {
     public Node cloneGraph(Node node) {
         if(node==null) return null;
