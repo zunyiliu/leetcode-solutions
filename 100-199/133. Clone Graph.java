@@ -75,3 +75,24 @@ class Solution {
         return root;
     }
 }
+
+// a clearer dfs rather than previous solution 2
+class Solution {
+    public Node cloneGraph(Node node) {
+        if(node==null) return null;
+        HashMap<Node,Node> map = new HashMap();
+        return dfs(map,node);
+    }
+    public Node dfs(HashMap<Node,Node> map, Node node){
+        if(map.containsKey(node)){
+            return map.get(node);
+        }else{
+            Node root = new Node(node.val);
+            map.put(node,root);
+            for(Node neighbor:node.neighbors){
+                root.neighbors.add(dfs(map,neighbor));
+            }
+            return root;
+        }
+    }
+}
