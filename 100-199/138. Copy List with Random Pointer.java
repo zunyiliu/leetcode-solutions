@@ -2,7 +2,7 @@
 // solution 1: dfs
 // solution 2: bfs with queue, this method applies for graph (since graph can not use .next to traverse all nodes, a queue
 // is necessary to traverse all nodes)
-// solution 3: bfs without applying queue, since node.next in linkedlist can traverse all nodes easily
+// solution 3: bfs without applying queue, since using node.next in linkedlist can traverse all nodes easily
 
 // solution 1
 class Solution {
@@ -60,3 +60,20 @@ class Solution {
 }
 
 // solution 3
+class Solution {
+    public Node copyRandomList(Node head) {
+        HashMap<Node,Node> map = new HashMap();
+        Node cur = head;
+        while(cur!=null){
+            map.put(cur,new Node(cur.val));
+            cur = cur.next;
+        }
+        cur = head;
+        while(cur!=null){
+            map.get(cur).next = map.get(cur.next);
+            map.get(cur).random = map.get(cur.random);
+            cur = cur.next;
+        }
+        return map.get(head);
+    }
+}
