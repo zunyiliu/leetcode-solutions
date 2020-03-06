@@ -2,6 +2,7 @@
 // to verify dp[i] is true or false, iterate wordDict, and if(dp[i-str.length()] && str.equals(s.substring(i-str.length(),i)) )
 // then dp[i] = true
 // solution 2: similar
+// solution 3: backtracking DFS, use map to record duplicate string's result to avoid re-calculation
 
 // solution 1
 class Solution {
@@ -36,5 +37,27 @@ class Solution {
             }    
         }
         return dp[s.length()];
+    }
+}
+
+// solution 3
+class Solution {
+    public boolean wordBreak(String s, List<String> wordDict) {
+        return dfs(s,wordDict,new HashMap());
+    }
+    public boolean dfs(String s, List<String> wordDict,HashMap<String,Boolean> map){
+        if(map.containsKey(s) ) return map.get(s);
+        if(s.length()==0) return true;
+        for(String str:wordDict){
+            if(s.startsWith(str)){
+                boolean correct = dfs(s.substring(str.length()),wordDict,map);
+                if(correct) {
+                    map.put(s,true);
+                    return true;
+                }
+            }
+        }
+        map.put(s,false);
+        return false;
     }
 }
