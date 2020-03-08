@@ -5,6 +5,8 @@
 //                      2nd -- reverse list for the second part
 //                      3rd -- merge two lists
 
+// solution 3: extra memory required, naive solution, using stack to store nodes
+
 // solution 1
 class Solution {
     public void reorderList(ListNode head) {
@@ -69,5 +71,31 @@ class Solution {
             p1 = tmp1;
             p2 = tmp2;
         }
+    }
+}
+
+// solution 3
+class Solution {
+    public void reorderList(ListNode head) {
+        if(head==null || head.next==null) return;
+        Stack<ListNode> stack = new Stack();
+        ListNode h = head;
+        while(h!=null){
+            stack.push(h);
+            h = h.next;
+        }
+        ListNode tail = stack.pop();
+        while(tail!=head){
+            ListNode tmp = head.next;
+            head.next = tail;
+            head = tmp;
+            if(tmp==tail) {
+                tail.next = null;
+                return;
+            }
+            tail.next = tmp;
+            tail = stack.pop();
+        }
+        tail.next =null;
     }
 }
