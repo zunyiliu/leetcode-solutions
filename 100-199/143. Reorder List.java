@@ -34,3 +34,40 @@ class Solution {
         return rt;
     }
 }
+
+// solution 2
+class Solution {
+    public void reorderList(ListNode head) {
+        if(head == null || head.next == null) return;
+        
+        // step 1
+        ListNode fast = head;
+        ListNode slow = head;
+        while(fast.next!=null && fast.next.next!=null){
+            slow = slow.next;
+            fast = fast.next.next;
+        }
+        
+        // step 2
+        ListNode pre = slow.next, cur = pre.next;
+        slow.next = null;
+        pre.next = null;
+        while(cur!=null){
+            ListNode tmp = cur.next;
+            cur.next = pre;
+            pre = cur;
+            cur = tmp;
+        }
+        
+        // step 3, from step 1 we know part1's length must be longger or equal to part2
+        ListNode p2 = pre, p1 = head;
+        while(p2!=null){
+            ListNode tmp1 = p1.next;
+            ListNode tmp2 = p2.next;
+            p1.next = p2;
+            p2.next = tmp1;
+            p1 = tmp1;
+            p2 = tmp2;
+        }
+    }
+}
