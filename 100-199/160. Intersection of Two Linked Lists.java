@@ -34,3 +34,31 @@ public class Solution {
         return slow;
     }
 }
+
+public class Solution {
+    public ListNode getIntersectionNode(ListNode headA, ListNode headB) {
+        if(headA == null || headB == null) return null;
+        
+        ListNode a = headA;
+        ListNode b = headB;
+        
+        // assume a and b have intersection, a consists of x + z length
+        // b consists of y + z length while z is their overlapping part
+        // 1. if x == y then in the 1st iteration they will meet
+        // 2. if x != y, then in the 2nd iteraiton they will meet
+        // (move two pointers together, while a reaches end points a to b's head,
+        // while b reaches end points b to a's head)
+        // thus when a moves x+z+y steps and b moves y+z+x steps they will meet
+        // and this is the intersection node
+        // 3. if a and b has no intersection, then a==b only happends at the
+        // end of 2nd iteration, while they both reach tail thus they are both equal to null
+        while(a!=b){
+            if(a!=null) a = a.next;
+            else a = headB;
+            
+            if(b!=null) b = b.next;
+            else b = headA;
+        }
+        return b;
+    }
+}
