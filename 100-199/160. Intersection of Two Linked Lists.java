@@ -1,5 +1,7 @@
-// build a cycle then use floyd algorithm to do the job
+// solution 1: build a cycle then use floyd algorithm to do the job
+// solution 2: just link a's tail to b's head, and b's tail to a's head, brilliant solution 
 
+// solution 1
 public class Solution {
     public ListNode getIntersectionNode(ListNode headA, ListNode headB) {
         if(headA==null || headB==null) return null;
@@ -35,6 +37,7 @@ public class Solution {
     }
 }
 
+// solution 2
 public class Solution {
     public ListNode getIntersectionNode(ListNode headA, ListNode headB) {
         if(headA == null || headB == null) return null;
