@@ -27,3 +27,37 @@ class Solution {
         return gap;
     }
 }
+
+
+// solution 2
+class Solution {
+    public int maximumGap(int[] nums) {
+        if(nums==null || nums.length<2) return 0;
+        int max = Integer.MIN_VALUE, min = Integer.MAX_VALUE;
+        for(int num:nums){
+            max = Math.max(max,num);
+            min = Math.min(min,num);
+        }
+        int gap = 1+(max-min)/nums.length;
+        Integer bucketMax[] = new Integer[nums.length];
+        Integer bucketMin[] = new Integer[nums.length];
+        
+        for(int i=0;i<nums.length;i++){
+            int index = (nums[i]-min)/gap;
+            bucketMax[index] = bucketMax[index]==null? nums[i]:Math.max(bucketMax[index],nums[i]);
+            bucketMin[index] = bucketMin[index]==null? nums[i]:Math.min(bucketMin[index],nums[i]);
+        }
+        
+        int maxgap = Integer.MIN_VALUE;
+        int pre = bucketMax[0];
+        for(int i=1;i<nums.length;i++){
+            if(bucketMin[i]!=null){
+                maxgap = Math.max(maxgap,bucketMin[i]-pre);
+                pre = bucketMax[i]; 
+            }
+        }
+        // case while all nums are same and they are all
+        // distributed in the same 1st bucket
+        return maxgap==Integer.MIN_VALUE? 0:maxgap;
+     }
+}
