@@ -1,4 +1,5 @@
 // solution 1: naive, O(n^2) time complexity and O(1) extra space
+// solution 2: easy to understand, rotate 3 times(the whole array, the first part, the second part)
 
 // solution 1
 class Solution {
@@ -15,5 +16,23 @@ class Solution {
             nums[i+1] = nums[i];
         }
         nums[0] = tmp;
+    }
+}
+
+// solution 2
+class Solution {
+    public void rotate(int[] nums, int k) {
+        reverse(nums,0,nums.length-1);
+        reverse(nums,0,k-1);
+        reverse(nums,k,nums.length-1);
+    }
+    public void reverse(int nums[],int st,int end){
+        while(st<end){
+            int temp = nums[st];
+            nums[st] = nums[end];
+            nums[end] = temp;
+            st++;
+            end--;
+        }
     }
 }
