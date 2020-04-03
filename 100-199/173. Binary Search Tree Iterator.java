@@ -1,4 +1,6 @@
-// stack based solution, O(h) -- 
+// stack based solution, O(h) space complexity-- the height of the tree(or logn) and O(1) in average time complexity
+// O(n) totally for in stack and O(n) totally out stack, divided by Ns operation 2n/n = O(2) which is O(1) in average
+// the arrayList here is actually play a role like a Stack 
 
 class BSTIterator {
     
