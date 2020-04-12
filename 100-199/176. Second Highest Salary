@@ -1,4 +1,4 @@
-# Write your MySQL query statement below
+# Write your MySQL query statement below。
 select ifnull(
     (select distinct salary 
     from employee
