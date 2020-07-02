@@ -2,6 +2,8 @@
 // in each level while reaching the end, store that node's val into list
 // return the list after all nodes are iterated
 
+// solution 2: DFS, use dfs plus a count to target the current level of the tree, the list add the val of the node when it's the first time reaching a new level
+
 // solution 1
 class Solution {
     public List<Integer> rightSideView(TreeNode root) {
@@ -24,5 +26,26 @@ class Solution {
         }
      
         return res;
+    }
+}
+
+// solution 2
+class Solution {
+    public List<Integer> rightSideView(TreeNode root) {
+        List<Integer> res = new ArrayList();
+        
+        dfs(res,root,1);
+     
+        return res;
+    }
+    
+    public void dfs(List<Integer> res,TreeNode root,int lvl){
+        if(root!=null){
+            if(lvl>res.size()){
+                res.add(root.val);
+            }
+            dfs(res,root.right,lvl+1);
+            dfs(res,root.left,lvl+1);
+        }
     }
 }
