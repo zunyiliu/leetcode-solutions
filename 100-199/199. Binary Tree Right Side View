@@ -1,6 +1,8 @@
 // solution 1: A straight forward solution, apply two queues to iterate the tree by level
 // in each level while reaching the end, store that node's val into list
 // return the list after all nodes are iterated
+** solution 1 can be modified to use one queue instead of two, by applying detection of the size of the list, so that we can know
+    if it's the first time we reach the current level **
 
 // solution 2: DFS, use dfs plus a count to target the current level of the tree, the list add the val of the node when it's the first time reaching a new level
 
