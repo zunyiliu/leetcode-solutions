@@ -3,23 +3,16 @@
 
 // solution 1
 class Solution {
+    ListNode tail;
     public ListNode reverseList(ListNode head) {
-        if(head==null) return null;
-        List<ListNode> list = new ArrayList();
-        
+        ListNode pre = null;
         while(head!=null){
-            list.add(head);
-            head = head.next;
+            ListNode tmp = head.next;
+            head.next = pre;
+            pre = head;
+            head = tmp;
         }
-        
-        head = list.get(list.size()-1);
-        ListNode cur = head;
-        for(int i=list.size()-2;i>=0;i--){
-            cur.next = list.get(i);
-            cur = list.get(i);
-        }
-        cur.next = null;
-        return head;
+        return pre;
     }
 }
 
