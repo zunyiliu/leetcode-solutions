@@ -1,0 +1,62 @@
+// solution 1: O(n) space complexity and O(n) time complexity
+// solution 2: O(1) extra space and O(n) time complexity, use two pointers, a fast and a slow, fast moves 2 steps once and slow moves 1 step each time.
+// You can find the mid of the list. Then, reverse the right half of the list, and start from the head and tail of the list, compare them to the mid direction
+// and give the result if it's a palindrome
+
+// solution 1:
+class Solution {
+    public boolean isPalindrome(ListNode head) {
+        List<Integer> list = new ArrayList();
+        
+        while(head!=null){
+            list.add(head.val);
+            head = head.next;
+        }
+        
+        int l = 0;
+        int r = list.size()-1;
+        
+        while(l<r){
+            if((int)list.get(l)!=(int)list.get(r)) return false;
+            l++;
+            r--;
+        }
+        return true;
+    }
+}
+
+// solution 2
+class Solution {
+    public boolean isPalindrome(ListNode head) {
+        ListNode fast = head, slow = head;
+        while (fast != null && fast.next != null) {
+            fast = fast.next.next;
+            slow = slow.next;
+        }
+        if (fast != null) { // odd nodes: let right half smaller
+            slow = slow.next;
+        }
+        slow = reverse(slow);
+        fast = head;
+
+        while (slow != null) {
+            if (fast.val != slow.val) {
+                return false;
+            }
+            fast = fast.next;
+            slow = slow.next;
+        }
+        return true;
+    }
+
+    public ListNode reverse(ListNode head) {
+        ListNode prev = null;
+        while (head != null) {
+            ListNode next = head.next;
+            head.next = prev;
+            prev = head;
+            head = next;
+        }
+        return prev;
+    }
+}
