@@ -1,5 +1,7 @@
-// solution 1: backtracking, find p's and q's parents and stroe them into lists, compare the two lists
+// solution 1: Backtracking, find p's and q's parents and stroe them into lists, compare the two lists
 // and track till the last node that are common parent for both p and q
+
+// solution 2: A sophisticated backtracking, check the code in detail 
 
 // solution 1
 class Solution {
@@ -29,5 +31,20 @@ class Solution {
             dfs(root.right,p,q,stack);
             stack.pop();
         }
+    }
+}
+
+// solution 2
+class Solution {
+    public TreeNode lowestCommonAncestor(TreeNode root, TreeNode p, TreeNode q) {
+        if(root==null || root==p || root==q) return root;
+        
+        TreeNode left = lowestCommonAncestor(root.left,p,q);
+        TreeNode right = lowestCommonAncestor(root.right,p,q);
+        
+        if(left==null && right==null) return null;
+        if(left!=null && right!=null) return root;
+        if(left!=null && right==null) return left;
+        return right;
     }
 }
