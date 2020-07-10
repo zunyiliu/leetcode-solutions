@@ -38,11 +38,10 @@ class Solution {
                 int remain = queue.poll();
                 for(int j=1;j*j<=remain;j++){
                     if(remain-j*j==0) return depth;
-                    else{
-                        if(!visited.contains(remain-j*j)){
-                            queue.add(remain-j*j);
-                            visited.add(remain-j*j);
-                        }
+                    
+                    if(!visited.contains(remain-j*j)){
+                        queue.add(remain-j*j);
+                        visited.add(remain-j*j);
                     }
                 }
             }
