@@ -10,9 +10,10 @@
 
 // solution 2.1: same as 2, use Deque instead of linkedlist
 
-// solution 3: Deque 
-// solution 3: DP with two arrays
-// solution 4: 
+// solution 3: DP or applying two arrays. Partitioning nums[] into blocks with size k,
+// e.g if nums[] = {1,2,3,4,5,6,7,8} and k = 3, then nums[] should be partitioned to 1,2,3; 4,5,6 ; 7,8
+// Left[i] represents the max value from the start index of i's block to itself, right[i] represents the max value from the end index of i's block to itself
+// we can know that res[i] = Math.max(right[i],left[i+k-1])
 
 class Solution {
     public int[] maxSlidingWindow(int[] nums, int k) {
@@ -68,6 +69,34 @@ class Solution {
             }
             d.offerLast(i);
             if(i-k+1>=0) res[i-k+1] = nums[d.peekFirst()];
+        }
+        
+        return res;
+    }
+}
+
+// solution 3
+class Solution {
+    public int[] maxSlidingWindow(int[] nums, int k) {
+        int n = nums.length;
+
+        int right[] = new int[n];
+        int left[] = new int[n];
+        int res[] = new int[n-k+1];
+        
+        
+        for(int i=0;i<n;i++){
+            if(i%k==0) left[i] = nums[i];
+            else left[i] = Math.max(left[i-1],nums[i]);
+        }
+        
+        for(int i=n-1;i>=0;i--){
+            if(i==n-1 || (i+1)%k==0 ) right[i] = nums[i];
+            else right[i] = Math.max(right[i+1],nums[i]);
+        }
+        
+        for(int i=0;i<res.length;i++){
+            res[i] = Math.max(right[i],left[i+k-1]);            
         }
         
         return res;
