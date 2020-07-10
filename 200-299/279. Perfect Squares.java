@@ -2,8 +2,13 @@
 // solution 1: DP, not complex, but the problem does not illustrate that the range of n (thus generally we will consider n is between 0 to INTEGER.MAX_VALUE, and 
 // if so we won't consider DP since the array is too large)
 
+// solution 2 notice, for not exceeding time limit, you should create a set to record all visited remainings of n (e.g. you have spent 2 steps to reach 5, now from another path with 3 steps you reach
+// 5 again, now to reduce duplicate operations, you should avoid to add that path to the list/queue, since the path with 2 steps reaching 5 must have a shorter path to reach
+// the end compare to the path with 3 steps reaching 5)
 // solution 2: BFS, expand from n(you can either start from 0 or n), in each step, reduce n by minusing all possbile numbers' square and get all possible reduced new n(this is like BFS from source
 // node to different nodes that generate different paths), the shortest path that reduces n to 0 is the result
+
+// solution 2.1, same concept as 2, but use an arraylist to function the same as a queue
 
 // solution 1
 class Solution {
@@ -46,5 +51,39 @@ class Solution {
                 }
             }
         }
+    }
+}
+
+// solution 2.1
+class Solution {
+    public int numSquares(int n) {
+        ArrayList<ArrayList<Integer>> paths = new ArrayList();
+        ArrayList<Integer> path1 = new ArrayList();
+        Set<Integer> visited = new HashSet();
+        path1.add(n);
+        paths.add(path1);
+        
+        while(true){
+            int size = paths.size();
+            for(int i=0;i<size;i++){
+                int remain = paths.get(i).get(0);
+                
+                for(int j=1;j*j<=remain;j++){
+                    ArrayList<Integer> pathi = new ArrayList(paths.get(i));
+                    pathi.set(0,remain-j*j);
+                    pathi.add(j);
+                    if(pathi.get(0)==0){
+                        return pathi.size()-1;
+                    }
+                    if(!visited.contains(pathi.get(0))){
+                        visited.add(pathi.get(0));
+                        paths.add(pathi);
+                    }
+                }
+            }
+            
+            for(int i=0;i<size;i++) paths.remove(0);
+        }
+        
     }
 }
