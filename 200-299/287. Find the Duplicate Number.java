@@ -12,8 +12,8 @@
 // find num[num[i]] is negative(that means num[i] is duplicated)
 
 // solution 4: O(32N) time complexity O(1) space, bit operation
-// for a given bit (from 0 to 32), count the number of 1s from nums[0] to nums[nums.length-1] and the number of 1s from 1 to nums.length, if the former's 1s is more than
-// the latter's 1s, it means the duplicated number has 1 in current bit, do this for all 32-bits and we can concatenate the result bit by bit
+// for a given i-th bit (from 0 to 32), count a--the number of 1s from nums[0] to nums[nums.length-1] and b--the number of 1s from 1 to nums.length, 
+// if a>b, then the duplicated number has 1 in i-th bit, do this for all 32-bits and we can concatenate the result bit by bit
 
 // solution 1
 class Solution {
