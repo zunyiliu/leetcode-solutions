@@ -5,6 +5,10 @@
 
 // solution 2: Binary Search O(nlogn)
 
+// solution 3: need the input to be writable, the concept is, revert the nums[i] into -num[i], since there're only one num is duplicated
+// assume num[i] is duplicated, the 1st you meet num[i], let num[num[i]] = -num[num[i]], then the next time you meet an other num[i], you will 
+// find num[num[i]] is negative(that means num[i] is duplicated)
+
 // solution 1
 class Solution {
     public int findDuplicate(int[] nums) {
@@ -23,5 +27,17 @@ class Solution {
             slow = nums[slow];
         }
         return fast;
+    }
+}
+
+// solution 3
+public class Solution {
+    public int findDuplicate(int[] nums) {
+        for(int i=0;i<nums.length;i++){
+            int index = Math.abs(nums[i]);
+            if(nums[index]<0) return index;
+            nums[index] = -nums[index];
+        }
+        return -1;
     }
 }
