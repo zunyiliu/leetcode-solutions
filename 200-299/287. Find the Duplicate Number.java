@@ -4,6 +4,8 @@
 // fast that goes into the start of the cycle is the num that is duplicated
 
 // solution 2: Binary Search O(nlogn)
+// binary search for the nums in nums[](not binary search the index), "Given an array nums containing n + 1 integers where each integer is between 1 and n (inclusive)"  shows
+// the one of duplicated nums x must be in index x
 
 // solution 3: need the input to be writable, the concept is, revert the nums[i] into -num[i], since there're only one num is duplicated
 // assume num[i] is duplicated, the 1st you meet num[i], let num[num[i]] = -num[num[i]], then the next time you meet an other num[i], you will 
@@ -27,6 +29,28 @@ class Solution {
             slow = nums[slow];
         }
         return fast;
+    }
+}
+
+// solution 2
+public class Solution {
+    public int findDuplicate(int[] nums) {
+        int st = 0;
+        int end = nums.length-1;
+        
+        while(st<end){
+            int mid = (st+end)/2;
+            
+            int count = 0;
+            for(int i=0;i<nums.length;i++){
+                if(nums[i]<=mid) count++;
+            }
+            
+            if(count<=mid) st = mid+1;
+            else end = mid;
+            
+        }
+        return st;
     }
 }
 
