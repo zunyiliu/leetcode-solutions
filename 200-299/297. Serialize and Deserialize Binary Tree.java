@@ -56,3 +56,43 @@ public class Codec {
         return root;
     }
 }
+
+// solution 2
+public class Codec {
+
+    // Encodes a tree to a single string.
+    public String serialize(TreeNode root) {
+        StringBuilder sb = new StringBuilder();
+        sHelper(root,sb);
+        
+        return sb.toString();
+    }
+    
+    public void sHelper(TreeNode cur,StringBuilder sb){
+        if(cur==null){
+            sb.append("n,");
+        }else{
+            sb.append(cur.val+",");
+            sHelper(cur.left,sb);
+            sHelper(cur.right,sb);
+        }
+    }
+
+    // Decodes your encoded data to tree.
+    public TreeNode deserialize(String data) {
+        LinkedList<String> list = new LinkedList( Arrays.asList(data.split(",")) );
+        
+        return dHelper(list);
+    }
+    
+    public TreeNode dHelper(LinkedList<String> list){
+        String cur = list.removeFirst();
+        if(cur.equals("n")) return null;
+        
+        TreeNode ret = new TreeNode(Integer.parseInt(cur));
+        ret.left = dHelper(list);
+        ret.right = dHelper(list);
+        
+        return ret;
+    }
+}
