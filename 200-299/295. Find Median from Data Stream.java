@@ -1,5 +1,6 @@
 // solution 1: a tradition naive solution, time wasted
 // solution 2: use two heaps(priorityqueue here), one maxHeap and another minHeap, O(logn) add operation and O(1) findMedian operation
+// solution 2.1: same concept, a simplification of solution 2
 
 // solution 1
 class MedianFinder {
@@ -61,6 +62,31 @@ class MedianFinder {
                 minHeap.add(num);
                 maxHeap.add(minHeap.poll());
             }
+        }
+    }
+    
+    public double findMedian() {
+        if(maxHeap.size() > minHeap.size()) return maxHeap.peek();
+        return ((double)maxHeap.peek()+(double)minHeap.peek())/2;
+    }
+}
+
+// solution 2.1
+class MedianFinder {
+    PriorityQueue<Integer> maxHeap;
+    PriorityQueue<Integer> minHeap;
+
+    /** initialize your data structure here. */
+    public MedianFinder() {
+        maxHeap = new PriorityQueue( (i1,i2)->(int)i2-(int)i1 );
+        minHeap = new PriorityQueue( (i1,i2)->(int)i1-(int)i2 );
+    }
+    
+    public void addNum(int num) {
+        maxHeap.add(num);
+        minHeap.add(maxHeap.poll());
+        if(maxHeap.size() < minHeap.size()){
+            maxHeap.add(minHeap.poll());
         }
     }
     
