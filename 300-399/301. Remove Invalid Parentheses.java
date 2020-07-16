@@ -71,3 +71,58 @@ class Solution {
         }
     }
 }
+
+// solution 2
+class Solution {
+    public List<String> removeInvalidParentheses(String s) {
+        Set<String> res = new HashSet();
+        List<String> list = new ArrayList();
+        
+        int l = 0, r = 0;
+        for(int i=0;i<s.length();i++){
+            if(s.charAt(i)=='('){
+                l++;
+            }
+            if(s.charAt(i)==')'){
+                if(l>0) l--;
+                else r++;
+            }
+        }
+        
+        dfs(res,l,r,"",s);
+        return new ArrayList(res);
+    }
+    
+    public void dfs(Set<String> res,int l,int r,String cur,String s){
+        if(l==0 && r==0 && s.length()==0 && isValid(cur)) {
+            res.add(cur);
+            return;
+        }
+        if(l<0 || r<0 || s.length()==0) return;
+        
+        char ch = s.charAt(0);
+        s = s.substring(1);
+        
+        if(ch=='('){
+            dfs(res,l,r,cur+ch,s);
+            dfs(res,l-1,r,cur,s);
+        }else if(ch==')'){
+            dfs(res,l,r,cur+ch,s);
+            dfs(res,l,r-1,cur,s);
+        }else{
+            dfs(res,l,r,cur+ch,s);
+        }
+    }
+    
+    public boolean isValid(String s){
+        int l = 0;
+        for(int i=0;i<s.length();i++){
+            if(s.charAt(i)=='(') l++;
+            else if(s.charAt(i)==')'){
+                if(l<=0) return false;
+                else l--; 
+            } 
+        }
+        return l==0;
+    }
+}
