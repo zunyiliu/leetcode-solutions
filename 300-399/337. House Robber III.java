@@ -24,3 +24,25 @@ class Solution {
 }
 
 // solution 2
+class Solution {
+    public int rob(TreeNode root) {
+        return Math.max(dfs(root)[0],dfs(root)[1]);
+    }
+    
+    // int[0] for rob, int[1] for not rob
+    public int[] dfs(TreeNode cur){
+        if(cur==null) return new int[2];
+        int res[] = new int[2];
+        int left[] = new int[2];
+        int right[] = new int[2];
+        
+        left = dfs(cur.left);
+        right = dfs(cur.right);
+        
+        // if rob cur node, its left and right children must not rob
+        res[0] = cur.val+left[1]+right[1];
+        // if not rob cur node, you can choose 4 combinations of left and right children
+        res[1] = Math.max(left[0],left[1]) + Math.max(right[0],right[1]);
+        return res;
+    }
+}
