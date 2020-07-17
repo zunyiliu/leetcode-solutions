@@ -2,6 +2,8 @@
 // hint -- for a given node, if it's parent's rob == true, it can't rob, return it's children dfs. If it's parent's rob == false, then it can choose either rob or not rob
 // return the max value between a -- it's children dfs plus itself.val(rob) OR b-- it's children dfs (not rob)
  
+// solution 2: top-down dp, memorized each node's rob/not rob maximum value
+
 // solution 1
 class Solution {
     int sum = -1;
@@ -20,3 +22,5 @@ class Solution {
         }
     }
 }
+
+// solution 2
