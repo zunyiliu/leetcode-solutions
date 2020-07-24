@@ -1,3 +1,7 @@
+
+
+// solution 3: DFS, will exceed time limit in special cases, (2^n) time complexity
+
 class Solution {
     public boolean canPartition(int[] nums) {
         int sum = 0;
@@ -53,5 +57,23 @@ class Solution {
         }
         
         return false;
+    }
+}
+
+// solution 3
+class Solution {
+    public boolean canPartition(int[] nums) {
+        int sum = 0;
+        for(int n:nums) sum+=n;
+        if(sum%2!=0) return false;
+        
+        return dfs(nums,0,sum/2);
+    }
+    
+    public boolean dfs(int[] nums,int i,int sum){
+        if(sum==0) return true;
+        if(i>=nums.length || sum<0) return false;
+        
+        return dfs(nums,i+1,sum-nums[i]) || dfs(nums,i+1,sum);
     }
 }
