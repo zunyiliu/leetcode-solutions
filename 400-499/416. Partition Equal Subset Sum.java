@@ -25,3 +25,33 @@ class Solution {
         return dp[sum];
     }
 }
+
+class Solution {
+    public boolean canPartition(int[] nums) {
+        List<Integer> list = new ArrayList();
+        Set<Integer> set = new HashSet();
+        list.add(0);
+        set.add(0);
+        
+        int sum = 0;
+        for(int n:nums) sum+=n;
+        if(sum%2!=0) return false;
+        sum /= 2;
+        if(sum==0) return true;
+        
+        for(int i=0;i<nums.length;i++){
+            int size = list.size();
+            
+            for(int j=0;j<size;j++){
+                int tmp = list.get(j)+nums[i];
+                if(!set.contains(tmp) && tmp<=sum){
+                    if(tmp==sum) return true;
+                    set.add(tmp);
+                    list.add(tmp);
+                }
+            }
+        }
+        
+        return false;
+    }
+}
