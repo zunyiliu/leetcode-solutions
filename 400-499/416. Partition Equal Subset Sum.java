@@ -1,7 +1,8 @@
-
-
+// solution 1: Knapsack problem, dp
+// solution 2: BFS with recording duplicates (actually similar as dp)
 // solution 3: DFS, will exceed time limit in special cases, (2^n) time complexity
 
+// solution 1
 class Solution {
     public boolean canPartition(int[] nums) {
         int sum = 0;
@@ -30,6 +31,7 @@ class Solution {
     }
 }
 
+// solution 2
 class Solution {
     public boolean canPartition(int[] nums) {
         List<Integer> list = new ArrayList();
