@@ -1,6 +1,8 @@
 // solution 1 O(n^2), loop s, each time expand around s.charAt(i) and record start&end index if palindrome is longer than before
 // solution 2：can also be solved by using dp, dp[i][j] represents if s from index i to j is a palindrom
 // solution 3: a more consice way for solution 1(same concept clearer code logic)
+// solution 4: manachar's algorith（马拉车算法）
+
 class Solution {
     public String longestPalindrome(String s) {
         if(s.length()<=1) return s;
