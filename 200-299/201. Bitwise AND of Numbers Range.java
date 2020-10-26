@@ -7,6 +7,16 @@
 // 4. if num < 2^i, we calculate the least number m's i-th bit and most number n's i-th bit, if both of them are not 0 then the i-th bit of result is 1, otherwise is 0
 // 5. we do this bit by bit, with a for loop from 0 to 31, then we can joint the final result
 
+// solution 2
+// same way as solution 1 but simplified
+
+// solution 3
+// simplification of solution 2, observing solution 2, you
+// can see that as while(m!=n) then we may judge if(n-m+1<=1 && n%2==1 && m%2==1) result += 1<<i;
+// since m!=n then n-m+1 definitely > than 1 thus if(n-m+1<=1 && n%2==1 && m%2==1) result += 1<<i make no sense
+// thus variable result makes no sense -> this is just by analysing the plain logic of the code, you can spend few minutes thinking the mind behind that
+// and why the few lines of code is correct
+
 // solution 1
 class Solution {
     public int rangeBitwiseAnd(int m, int n) {
@@ -32,3 +42,32 @@ class Solution {
 }
 
 // solution 2
+class Solution {
+    public int rangeBitwiseAnd(int m, int n) {
+        int result = 0;
+        int i = 0;
+        
+        while(m!=n){
+            if(n-m+1<=1 && n%2==1 && m%2==1) result += 1<<i;
+            m /= 2;
+            n /= 2;
+            i++;
+        }
+        
+        return result|(m<<i);
+    }
+}
+
+// solution 3
+class Solution {
+    public int rangeBitwiseAnd(int m, int n) {
+        int i = 0;
+        
+        while(m!=n){
+            m /= 2;
+            n /= 2;
+            i++;
+        }    
+        return m<<i;
+    }
+}
