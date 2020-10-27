@@ -1,5 +1,9 @@
-// solution 1: two pointers sliding window
+// solution 1: two pointers sliding window O(n)
 // a head and a tail, sum the continuously sub-array from head to tail, slide the window and record the min length
+
+// solution 2: solution 1 samplified code 
+
+// solution 3: O(nlogn)
 
 // solution 1
 class Solution {
@@ -22,6 +26,33 @@ class Solution {
                 if(min==1) return 1;
                 sum -= nums[st];
                 st++;
+            }
+        }
+        
+        return min == 9999999? 0:min;
+    }
+}
+
+// solution 2
+class Solution {
+    public int minSubArrayLen(int s, int[] nums) {
+        if (nums.length == 0) return 0;
+        
+        int i = 0;
+        int j = 0;
+        int sum = 0;
+        int min = 9999999;
+        
+        while (j < nums.length) {
+            sum += nums[j];
+            j++;
+            
+            while (sum >= s) {
+                sum -= nums[i];
+                i++;
+                min = Math.min(j-i+1,min);
+                
+                if (min == 1) return 1;
             }
         }
         
