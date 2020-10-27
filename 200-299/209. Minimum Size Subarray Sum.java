@@ -3,7 +3,8 @@
 
 // solution 2: solution 1 samplified code 
 
-// solution 3: O(nlogn)
+// solution 3: O(nlogn)，try if length==n exists, if so shrink the length and verify cotinuely, if not expand it, in each turn we take O(n) to verify 
+// we can deduct O(k) = O(k/2)+O(n) -->  which is O(nlogn)
 
 // solution 1
 class Solution {
