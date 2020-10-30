@@ -5,6 +5,8 @@
 // --> also brute force also works O(n^2) as we are only looking for the longest palindrome starts from the head of the input string
 // --> !!However, only O(n) solution is acceptable as the input string will contain up to 5 * 10 ^ 4 chars
 
+// solution 2: KMP utilization to solve this problem, will explain later
+
 // solution 1: manacher's algorithm, O(n) time copmplexity, please check explanation in problem 5.longest palindromic substring
 class Solution {
     public String shortestPalindrome(String s) {
@@ -47,5 +49,34 @@ class Solution {
         }
         
         return result.append(s).toString();
+    }
+}
+
+// solution 2
+class Solution {
+    // KMP look up table -- find longest prefix and postfix
+    public String shortestPalindrome(String s) {
+        String ss = s + "#" + new StringBuilder(s).reverse().toString();
+        int table[] = new int[ss.length()];
+        
+        for (int i = 1; i < ss.length(); i++) {
+            if (ss.charAt(table[i-1]) == ss.charAt(i)) table[i] = table[i-1] + 1;
+            else {
+                int index = table[i-1];
+                
+                while (index > 0 && ss.charAt(index) != ss.charAt(i)) {
+                    index = table[index-1];
+                }
+                
+                if (ss.charAt(index) == ss.charAt(i)) {
+                    index++;
+                }
+                
+                table[i] = index;
+            }
+        }
+        
+        int longest = table[table.length-1];
+        return new StringBuilder(s.substring(longest)).reverse().toString() + s;
     }
 }
