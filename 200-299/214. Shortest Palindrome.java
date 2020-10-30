@@ -5,6 +5,8 @@
 // --> also brute force also works O(n^2) as we are only looking for the longest palindrome starts from the head of the input string
 // --> !!However, only O(n) solution is acceptable as the input string will contain up to 5 * 10 ^ 4 chars
 
+// solution 1: manacher algorithm
+
 // solution 2: KMP utilization to solve this problem, will explain later
 
 // solution 1: manacher's algorithm, O(n) time copmplexity, please check explanation in problem 5.longest palindromic substring
