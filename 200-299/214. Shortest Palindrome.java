@@ -1,4 +1,4 @@
-// One scenario, we're acutually looking for a longest palindrome that starts from the head of the input string
+// One scenario, we're acutually looking for a longest palindrome starts from index 0
 // once find the longest palindrome, reversely traverse input string from its tail to the end of the longest palindrome
 // and append these chars at the head of the string
 // --> we can apply dp O(n^2), pointer centre expand method O(n^2), or manachar O(n) to solve longest palindromic substring problem and then solve this problem
