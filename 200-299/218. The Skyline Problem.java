@@ -12,8 +12,6 @@ class Solution {
     }
     
     public List<List<Integer>> getSkyline(int[][] buildings) {
-         // int [][] bbb = {{1,2,1},{1,2,2},{1,2,3}};
-         // buildings = bbb;
         List<List<Integer>> res = new ArrayList();
         List<Line> lines = new ArrayList();
         
@@ -28,13 +26,15 @@ class Solution {
         // infront of the other line
         Collections.sort(lines, (line1,line2) -> {
             if (line1.x == line2.x) {
-                if (line1.isleft && line2.isleft) return line2.y - line1.y;
-                if (!line1.isleft && !line2.isleft) return line1.y - line2.y;
+                if (line1.isleft && line2.isleft) return line2.y - line1.y; // these two lines are considering while two buildings start at same x
+                if (!line1.isleft && !line2.isleft) return line1.y - line2.y; //
                 return line1.isleft? -1 : 0;
             }
             return line1.x - line2.x;
         });
 
+        // iterate the building, while meet a left line, add onto list, when meet a right line, remove the corresponding left line from the list
+        // deal very carefully for when to add a new point
         List<Line> list = new ArrayList();
         list.add(new Line(0,0,true));
         for(int i = 0; i < lines.size(); i++) {
