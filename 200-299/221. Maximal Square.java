@@ -1,4 +1,4 @@
-// solution 1: DP slef come up solution with O(n^3) complexity, start from the top-left corner, dp[i][j] represents the 
+// solution 1: DP self come up solution with O(n^3) complexity, start from the top-left corner, dp[i][j] represents the 
 // max square the cell can expand from itself to its top-left side
 // iterate the dp array, if dp[i][j] can be expanded from dp[i-1][j-1]
 // update it
