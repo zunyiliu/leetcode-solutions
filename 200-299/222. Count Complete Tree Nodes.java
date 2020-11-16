@@ -9,3 +9,19 @@ class Solution {
         return sum;
     }
 }
+
+// same, but better code structure
+class Solution {
+    int sum = 0;
+    public int countNodes(TreeNode root) {
+        recur(root);
+        return sum;
+    }
+    public void recur(TreeNode r) {
+        if (r != null) {
+            sum++;
+            recur(r.left);
+            recur(r.right);
+        }
+    }
+}
