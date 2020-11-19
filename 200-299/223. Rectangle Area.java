@@ -16,3 +16,17 @@ class Solution {
         return a1 + a2 - overlap;
     }
 }
+
+// better in check the existence of overlap area
+class Solution {
+    public int computeArea(int A, int B, int C, int D, int E, int F, int G, int H) {
+        int a1 = (D - B) * (C - A);
+        int a2 = (H - F) * (G - E);
+        int overlap = 0;
+        
+        if (Math.max(A,E) < Math.min(C,G) && Math.max(B,F) < Math.min(D,H)) {
+            overlap = (Math.min(C,G) - Math.max(A,E)) * (Math.min(D,H) - Math.max(B,F));
+        }
+        return a1 + a2 - overlap;
+    }
+}
