@@ -24,4 +24,27 @@ class Solution {
     }
 }
 
-// solution 2: bit manipulation
+// solution 2: bit manipulation, get the last set bit (the last bit of the two different numbers' that are different), seperate the nums into two groups
+class Solution {
+    public int[] singleNumber(int[] nums) {
+        int diff = 0;
+        for (int num : nums) {
+            diff ^= num;
+        }
+        
+        // get the last set bit of diff
+        diff &= -diff;
+        
+        int res[] = {0,0};
+        
+        for (int num : nums) {
+            if ((num&diff) == 0) {
+                res[0] ^= num;
+            } else {
+                res[1] ^= num;
+            }
+        }
+        
+        return res;
+    }
+}
