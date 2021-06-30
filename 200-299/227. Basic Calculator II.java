@@ -1,4 +1,4 @@
-// solution 1: straightforward but a bit complicated, recursion
+// solution 1: straightforward but a bit complicated, iteration
 // solution 2: stack
 
 // solution 1
