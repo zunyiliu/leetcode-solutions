@@ -1,3 +1,6 @@
+// solution 1: segment tree
+
+// solution 1
 class NumArray {
     segtree root;
     public NumArray(int[] nums) {
