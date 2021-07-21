@@ -17,6 +17,7 @@ class Solution {
     }
 }
 
+// solution 2: boyer-moore voting
 class Solution {
     public int majorityElement(int[] nums) {
         int count = 0;
