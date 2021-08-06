@@ -6,7 +6,7 @@
 //        you find the deleted number of left/right brackets are exceeding the limit, you can end this path-call in advance
 
 // solution 2: DFS(or backtracking)
-// solution 2.1: same as solution 2, use stringbuilder and in-place check of isValid(brackets) to same a lot run time
+// solution 2.1: same as solution 2, use stringbuilder and in-place check of isValid(brackets) to save run time
 
 // solution 1
 class Solution {
