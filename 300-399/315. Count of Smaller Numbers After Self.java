@@ -1,5 +1,8 @@
 // solution 1: brute force
 // solution 2: merge sort, use merge sort, and when merge two sorted array during mergesort, calculate the number of smaller elements on each element's right
+// solution 3: in-place segment tree, iterate array nums[] from tail to head, each time count the number of smaller element in the segtree, as we travel from right to left
+// the number of smaller element segment tree is the number of smaller number after self
+// solution 4: binary indexed tree
 
 // solution 1
 class Solution {
@@ -101,3 +104,57 @@ class Solution {
         }
     }
 }
+
+// solution 3
+class Solution {
+    public List<Integer> countSmaller(int[] nums) {
+        int min = Integer.MAX_VALUE;
+        int max = Integer.MIN_VALUE;
+        
+        for (int i : nums) {
+            min = Math.min(i,min);
+            max = Math.max(i,max);
+        }
+        
+        segtree root = new segtree(min,max);
+        int res[] = new int[nums.length];
+        
+        for (int i = nums.length-1; i >= 0; i--) {
+            segtree node = root;
+            while(node.max != node.min) {
+                int mid = (node.max-node.min)/2+node.min;
+                node.count++;
+                if (node.min == node.max) break;
+                if (nums[i] <= mid) {
+                    if (node.left == null) node.left = new segtree(node.min,mid);
+                    node = node.left;
+                } else {
+                    if (node.left != null) res[i] += node.left.count;
+                    if (node.right == null) node.right = new segtree(mid+1,node.max);
+                    node = node.right;
+                }
+            }
+            node.count++;
+        }
+        
+        List<Integer> ret = new ArrayList();
+        for (int i : res) ret.add(i);
+        
+        return ret;
+    }
+    
+    class segtree {
+        int min;
+        int max;
+        int count;
+        segtree left;
+        segtree right;
+        
+        public segtree(int min, int max) {
+            this.min = min;
+            this.max = max;
+        }
+    }
+}
+
+// solution 4:
