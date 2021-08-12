@@ -158,3 +158,46 @@ class Solution {
 }
 
 // solution 4:
+class Solution {
+    public List<Integer> countSmaller(int[] nums) {
+        int min = Integer.MAX_VALUE;
+        int max = Integer.MIN_VALUE;
+        
+        for (int i : nums) {
+            min = Math.min(i,min);
+            max = Math.max(i,max);
+        }
+            
+        int[] tree = new int[max-min+1];
+        List<Integer> res = new LinkedList();
+        
+        for (int i = nums.length-1; i >= 0; i--) {
+            update(nums[i]-min,tree);
+            res.add(0,sum(nums[i]-min-1,tree));
+        }
+        
+        return res;
+    }
+    
+    public void update(int index, int[] tree) {
+        for (int i = index; i < tree.length; i += lowbit(i+1)) {
+            tree[i]++;
+        }
+    }
+    
+    public int sum(int index, int[] tree) {
+        if (index < 0) return 0;
+        if (index == 0) return tree[0];
+        
+        int count = 0;
+        for (int i = index; i > 0; i -= lowbit(i+1)) {
+            count += tree[i];
+        }
+        
+        return count;
+    }
+    
+    public int lowbit(int i) {
+        return i & (~i+1);
+    }
+}
