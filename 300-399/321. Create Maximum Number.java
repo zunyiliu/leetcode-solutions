@@ -5,7 +5,7 @@
 // solution 2: optimization, first merge then reduce
 // if we get a max number of length k, then the max number of length kmin (kmin < k) can be reduced by the max number of length k
 //             1. create max number of length nums1.length + nums2.length
-//             2. use monotonic stack to reduce
+//             2. use monotonic stack to reduce the length to k
 
 // solution 1
 class Solution {
