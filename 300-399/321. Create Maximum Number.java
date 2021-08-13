@@ -2,8 +2,6 @@
 //             1. create 1st max number of length i from nums1 and 2nd max number of length k-i from nums2
 //             2. merge 1st max and 2nd max to the max number of length k
 //             3. iterate all possible i and k-i and get the max
-// solution 2: optimization, 
-
 // solution 1
 class Solution {
     public int[] maxNumber(int[] nums1, int[] nums2, int k) {
