@@ -152,4 +152,80 @@ class segNode {
         this.max = max;
     }
 }
-       
+
+// solution 3
+class Solution {
+    public int countRangeSum(int[] nums, int lower, int upper) {
+        long[] preSum = new long[nums.length + 1];
+        for (int i = 1; i < preSum.length; i++) {
+            preSum[i] = preSum[i-1] + nums[i-1];
+        }
+        
+        long min = Long.MAX_VALUE;
+        long max = Long.MIN_VALUE;   
+        for (long num : preSum) {
+            min = Math.min(Math.min(min, num), Math.min(num - upper, num - lower));
+            max = Math.max(Math.max(max, num), Math.max(num - upper, num - lower));
+        }
+        
+        int count = 0;
+        SegNode root = new SegNode(min, max);
+        for (int i = 0; i < preSum.length; i++) {
+            count += root.sum(preSum[i] - upper, preSum[i] - lower);
+            root.insert(preSum[i]);
+        }
+        
+        return count;
+    }
+}
+
+class SegNode {
+    SegNode left;
+    SegNode right;
+    long min;
+    long max;
+    int count;
+    
+    public SegNode (long min, long max) {
+        this.min = min;
+        this.max = max;
+    }
+    
+    public void insert(long num) {
+        this.count++;
+        if (this.min == this.max) {
+            return;
+        }
+        
+        long mid = (this.max + this.min) >> 1;
+        if (mid >= num) {
+            if (this.left == null) {
+                this.left = new SegNode(this.min, mid);
+            }
+            this.left.insert(num);
+        } else {
+            if (this.right == null) {
+                this.right = new SegNode(mid + 1, this.max);
+            }
+            this.right.insert(num);
+        }
+    }
+    
+    public int sum(long min, long max) {   
+        if (min == this.min && max == this.max) {
+            return this.count;
+        }
+        
+        long mid = (this.max + this.min) >> 1;
+        
+        if (max <= mid) {
+            return this.left == null? 0 : this.left.sum(min, max);
+        } else if (min >= mid + 1) {
+            return this.right == null? 0 : this.right.sum(min, max);
+        } else {
+            int left = this.left == null? 0 : this.left.sum(min, mid);
+            int right = this.right == null? 0 : this.right.sum(mid + 1, max);
+            return left + right;
+        }
+    }
+}
