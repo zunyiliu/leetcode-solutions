@@ -60,3 +60,96 @@ class Solution {
         }
     }
 }
+
+// solution 2
+class Solution {
+    public int countRangeSum(int[] nums, int lower, int upper) {
+        long []preSum = new long[nums.length+1];
+        Set<Long> ts = new TreeSet();
+        Map<Long, Integer> map = new HashMap();
+        
+        ts.add(preSum[0]);
+        for (int i = 1; i < preSum.length; i++) {
+            preSum[i] = preSum[i-1] + nums[i-1];
+            ts.add(preSum[i]);
+            ts.add(preSum[i] - lower);
+            ts.add(preSum[i] - upper);
+        }
+        
+        // 离散化处理
+        int index = -1;
+        for (long num : ts) {
+            map.put(num, ++index);
+        }
+        
+        segNode root = buildSegTree(0, index);
+        
+        int count = 0;
+        add(root, map.get(preSum[0]));
+        for (int j = 1; j < preSum.length; j++) {
+            int min = map.get(preSum[j] - upper);
+            int max = map.get(preSum[j] - lower);
+            int cur = map.get(preSum[j]);
+            count += find(root, min, max);
+            add(root, cur);
+        }
+        
+        return count;
+    }
+    
+    public void add(segNode node, int cur) {
+        node.count++;
+        if (node.min == node.max) {
+            return;
+        }
+        
+        int mid = (node.max - node.min) / 2 + node.min;
+        if (cur <= mid) {
+            add(node.left, cur);
+        } else {
+            add(node.right, cur);
+        }
+    }
+    
+    public int find(segNode node, int min, int max) {
+        if (node.min == min && node.max == max) {
+            return node.count;
+        }
+        
+        int mid = (node.max - node.min) / 2 + node.min;
+        
+        if (mid >= max) {
+            return find(node.left, min, max);
+        } else if (mid + 1 <= min) {
+            return find(node.right, min, max);
+        } else {
+            return find(node.left, min, mid) + find(node.right, mid + 1, max);
+        }
+    }
+    
+    public segNode buildSegTree(int min, int max) {
+        segNode node = new segNode(min, max);
+        if (min == max) {
+            return node;
+        }
+        
+        int mid = (max - min) / 2 + min;
+        node.left = buildSegTree(min, mid);
+        node.right = buildSegTree(mid + 1, max);
+        return node;
+    }
+}
+
+class segNode {
+    int min;
+    int max;
+    int count;
+    segNode left;
+    segNode right;
+    
+    public segNode(int min, int max) {
+        this.min = min;
+        this.max = max;
+    }
+}
+       
