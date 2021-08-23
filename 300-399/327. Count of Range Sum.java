@@ -13,8 +13,6 @@
 
 // solution 4: binary indexed tree with Discretization
 
-// solution 5: optimization, binary indexed tree without discretization
-
 // solution 1
 class Solution {
     public int countRangeSum(int[] nums, int lower, int upper) {
@@ -227,5 +225,68 @@ class SegNode {
             int right = this.right == null? 0 : this.right.sum(mid + 1, max);
             return left + right;
         }
+    }
+}
+
+// solution 4
+class Solution {
+    public int countRangeSum(int[] nums, int lower, int upper) {
+        long preSum[] = new long[nums.length + 1];
+        for (int i = 1; i < preSum.length; i++) {
+            preSum[i] = nums[i - 1] + preSum[i - 1];
+        }
+        
+        Set<Long> set = new TreeSet();
+        for (long sum : preSum) {
+            set.add(sum);
+            set.add(sum - upper);
+            set.add(sum - lower);
+        }
+        
+        Map<Long, Integer> map = new HashMap();
+        int index = 0;
+        for (long num : set) {
+            map.put(num, index++);
+        }
+        
+        int[] tree = new int[set.size()];
+        int count = 0;
+        for (long num : preSum) {
+            count += range(tree, map.get(num - upper), map.get(num - lower));
+            insert(tree, map.get(num));
+        }
+        
+        return count;
+    }
+    
+    public int range(int[] tree, int low, int high) {
+        return sum(tree, high) - sum(tree, low - 1);
+    }
+    
+    public void insert(int[] tree, int index) {
+        for (int i = index; i < tree.length; i += lowbit(i + 1)) {
+            tree[i] += 1; 
+        }
+    }
+    
+    public int sum(int[] tree, int index) {
+        if (index < 0) {
+            return 0;
+        }
+        
+        if (index == 0) {
+            return tree[index];    
+        }
+        
+        int sum = 0;
+        for (int i = index; i > 0; i -= lowbit(i + 1)) {
+            sum += tree[i]; 
+        }
+        
+        return sum;
+    }
+    
+    public int lowbit(int index) {
+        return index & (~index + 1);
     }
 }
